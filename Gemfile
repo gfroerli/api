@@ -1,0 +1,21 @@
+source 'https://rubygems.org'
+
+ruby File.read('.ruby-version').strip
+
+gem 'rails', '>= 5.0.0.beta2', '< 5.1'
+gem 'sqlite3'
+gem 'puma'
+gem 'jbuilder', '~> 2.0'
+gem 'redis', '~> 3.0'
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+# gem 'rack-cors'
+
+group :development, :test do
+  gem 'byebug'
+end
+
+group :development do
+  gem 'spring'
+end
+
