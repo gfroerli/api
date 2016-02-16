@@ -13,6 +13,7 @@ gem 'redis', '~> 3.0'
 
 group :development, :test do
   gem 'byebug'
+  gem 'factory_girl_rails'
 end
 
 group :development do
