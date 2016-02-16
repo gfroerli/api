@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
 
 gem 'rails', '>= 5.0.0.beta2', '< 5.1'
-gem 'sqlite3'
+gem 'pg'
 gem 'puma'
 gem 'jbuilder', '~> 2.0'
 gem 'redis', '~> 3.0'
