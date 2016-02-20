@@ -41,13 +41,14 @@ class SensorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sensor
-      @sensor = Sensor.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def sensor_params
-      params.require(:sensor).permit(:device_name, :caption, :sponsor_id, :location)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sensor
+    @sensor = Sensor.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def sensor_params
+    params.require(:sensor).permit(:device_name, :caption, :sponsor_id, :location)
+  end
 end

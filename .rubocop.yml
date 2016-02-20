@@ -3,3 +3,19 @@ Rails:
 
 Metrics/LineLength:
     Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'bin/**/*'
+    - 'script/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+    - 'config/**/*'

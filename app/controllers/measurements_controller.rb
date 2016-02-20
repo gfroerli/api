@@ -41,13 +41,14 @@ class MeasurementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_measurement
-      @measurement = Measurement.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def measurement_params
-      params.require(:measurement).permit(:temperature, :sensor_id, custom_attributes: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_measurement
+    @measurement = Measurement.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def measurement_params
+    params.require(:measurement).permit(:temperature, :sensor_id, custom_attributes: [])
+  end
 end
