@@ -12,10 +12,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create sensor" do
     assert_difference('Sensor.count') do
-      puts 'GAKJDLSJFSDF'
-      post sensors_url, params: { sensor: { caption: @sensor.caption, device_name: @sensor.device_name, location: @sensor.location, sponsor: @sensor.sponsor } }
-      puts 'GACH'
-      puts self
+      post sensors_url, params: { sensor: { caption: @sensor.caption, device_name: @sensor.device_name, location: @sensor.location, sponsor_id: @sensor.sponsor.id } }
     end
 
     assert_response 201
@@ -27,7 +24,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update sensor" do
-    patch sensor_url(@sensor), params: { sensor: { caption: @sensor.caption, device_name: @sensor.device_name, location: @sensor.location, sponsor: @sensor.sponsor } }
+    patch sensor_url(@sensor), params: { sensor: { caption: @sensor.caption, device_name: @sensor.device_name, location: @sensor.location, sponsor_id: @sensor.sponsor.id } }
     assert_response 200
   end
 
