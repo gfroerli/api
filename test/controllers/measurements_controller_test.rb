@@ -12,7 +12,9 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create measurement' do
     assert_difference('Measurement.count') do
-      post measurements_url, params: { measurement: { custom_attributes: @measurement.custom_attributes, sensor_id: @measurement.sensor.id, temperature: @measurement.temperature } }
+      post measurements_url, params: { measurement: { custom_attributes: @measurement.custom_attributes,
+                                                      sensor_id: @measurement.sensor.id,
+                                                      temperature: @measurement.temperature } }
     end
 
     assert_response 201
@@ -24,7 +26,9 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update measurement' do
-    patch measurement_url(@measurement), params: { measurement: { custom_attributes: @measurement.custom_attributes, sensor_id: @measurement.sensor.id, temperature: @measurement.temperature } }
+    patch measurement_url(@measurement), params: { measurement: { custom_attributes: @measurement.custom_attributes,
+                                                                  sensor_id: @measurement.sensor.id,
+                                                                  temperature: @measurement.temperature } }
     assert_response 200
   end
 
