@@ -11,12 +11,16 @@ gem 'jbuilder'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
-group :development, :test do
-  gem 'byebug'
-  gem 'factory_girl_rails'
-end
-
 group :development do
   gem 'spring'
   gem 'rubocop'
+end
+
+group :development, :test do
+  gem 'byebug'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'simplecov', require: false
 end
