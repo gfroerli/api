@@ -6,6 +6,7 @@ gem 'rails', '>= 5.0.0.beta2', '< 5.1'
 gem 'pg'
 gem 'puma'
 gem 'redis', '~> 3.0'
+gem 'jbuilder'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
