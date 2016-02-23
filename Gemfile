@@ -7,11 +7,12 @@ gem 'pg'
 gem 'puma'
 gem 'redis', '~> 3.0'
 gem 'jbuilder'
+gem 'dotenv-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
-gem 'particlerb'
+gem 'particlerb', require: false
 
 group :development do
   gem 'spring'
