@@ -21,6 +21,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'mocha'
   gem 'factory_girl_rails'
   gem 'simplecov', require: false
 end
