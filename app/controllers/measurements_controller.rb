@@ -20,7 +20,7 @@ class MeasurementsController < ApplicationController
     if @measurement.save
       render :show, status: :created, location: @measurement
     else
-      render json: @measurement.errors, status: :unprocessable_entity
+      render plain: @measurement.errors.to_json, content_type: 'application/json', status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class MeasurementsController < ApplicationController
     if @measurement.update(measurement_params)
       render :show, status: :ok, location: @measurement
     else
-      render json: @measurement.errors, status: :unprocessable_entity
+      render plain: @measurement.errors.to_json, content_type: 'application/json', status: :unprocessable_entity
     end
   end
 

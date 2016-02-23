@@ -20,7 +20,7 @@ class SponsorsController < ApplicationController
     if @sponsor.save
       render :show, status: :created, location: @sponsor
     else
-      render json: @sponsor.errors, status: :unprocessable_entity
+      render plain: @sponsor.errors.to_json, content_type: 'application/json', status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class SponsorsController < ApplicationController
     if @sponsor.update(sponsor_params)
       render :show, status: :ok, location: @sponsor
     else
-      render json: @sponsor.errors, status: :unprocessable_entity
+      render plain: @sponsor.errors.to_json, content_type: 'application/json', status: :unprocessable_entity
     end
   end
 
