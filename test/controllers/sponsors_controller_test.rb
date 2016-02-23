@@ -39,4 +39,24 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  class FlawedSponsorsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @sponsor = create(:sponsor)
+      Sponsor.any_instance.stubs(:save).returns(false)
+    end
+
+    test 'should NOT create sponsor' do
+      assert_no_difference('Sponsor.count') do
+        post sponsors_url, params: { sponsor: { blub: 'gach' } }
+      end
+
+      assert_response 422
+    end
+
+    test 'should NOT update sponsor' do
+      patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }
+      assert_response 422
+    end
+  end
 end

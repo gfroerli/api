@@ -37,4 +37,24 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  class FlawedSensorsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @sensor = create(:sensor)
+      Sensor.any_instance.stubs(:save).returns(false)
+    end
+
+    test 'should NOT create sensor' do
+      assert_no_difference('Sensor.count') do
+        post sensors_url, params: { sensor: { blub: 'gach' } }
+      end
+
+      assert_response 422
+    end
+
+    test 'should NOT update sensor' do
+      patch sensor_url(@sensor),  params: { sensor: { blub: 'gach' } }
+      assert_response 422
+    end
+  end
 end

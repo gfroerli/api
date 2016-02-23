@@ -39,4 +39,24 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  class FlawedMeasurementsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @measurement = create(:measurement)
+      Measurement.any_instance.stubs(:save).returns(false)
+    end
+
+    test 'should NOT create measurement' do
+      assert_no_difference('Measurement.count') do
+        post measurements_url, params: { measurement: { blub: 'gach' } }
+      end
+
+      assert_response 422
+    end
+
+    test 'should NOT update measurement' do
+      patch measurement_url(@measurement), params: { measurement: { blub: 'gach' } }
+      assert_response 422
+    end
+  end
 end
