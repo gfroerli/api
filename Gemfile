@@ -11,6 +11,8 @@ gem 'jbuilder'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+gem 'particlerb'
+
 group :development do
   gem 'spring'
   gem 'rubocop'
