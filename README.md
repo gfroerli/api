@@ -1,24 +1,33 @@
-## README
+# Coredump Water Sensor API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project provides an API for querying sensor data of our
+photon water sensors located in the particle cloud.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+* Ruby 2.3
+* Rails 5
 
-* System dependencies
+## Setup
 
-* Configuration
+Prepare the ruby environment
 
-* Database creation
+    git clone git@github.com:coredump-ch/water-sensor-api.git
+    rbenv install
+    gem install bundler
 
-* Database initialization
+Run the setup script
 
-* How to run the test suite
+    bin/setup
 
-* Services (job queues, cache servers, search engines, etc.)
+## Tests
 
-* Deployment instructions
+    rails test
 
-* ...
+## Tasks
+
+You can query the particle cloud and update the APIs sensor data by running
+the following task
+
+    rake particle:update
+
