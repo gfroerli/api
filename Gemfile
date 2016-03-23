@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '>= 5.0.0.beta2', '< 5.1'
+gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 gem 'pg'
 gem 'puma'
 gem 'redis', '~> 3.0'
