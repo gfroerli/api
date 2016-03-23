@@ -53,7 +53,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should NOT update sensor' do
-      patch sensor_url(@sensor),  params: { sensor: { blub: 'gach' } }
+      patch sensor_url(@sensor), params: { sensor: { blub: 'gach' } }
       assert_response 422
     end
   end
