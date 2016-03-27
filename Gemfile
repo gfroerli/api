@@ -4,13 +4,12 @@ ruby File.read('.ruby-version').strip
 
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 gem 'pg'
-gem 'puma'
 gem 'redis', '~> 3.0'
 gem 'jbuilder'
 gem 'dotenv-rails'
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'puma'
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'particlerb', require: false
 
