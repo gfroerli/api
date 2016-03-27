@@ -20,6 +20,10 @@ Run the setup script
 
     bin/setup
 
+## Dev Server
+
+    bin/rails server
+
 ## Tests
 
     bin/rails test
