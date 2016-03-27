@@ -22,7 +22,7 @@ Run the setup script
 
 ## Tests
 
-    rails test
+    bin/rails test
 
 ## Tasks
 
