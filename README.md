@@ -35,3 +35,8 @@ the following task
 
     rake particle:update
 
+## API Endpoints
+
+- `sensors` (full CRUD)
+- `measurements` (full CRUD)
+- `sponsors` (full CRUD)
