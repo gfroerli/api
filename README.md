@@ -20,9 +20,13 @@ Run the setup script
 
     bin/setup
 
+## Dev Server
+
+    bin/rails server
+
 ## Tests
 
-    rails test
+    bin/rails test
 
 ## Tasks
 
@@ -31,3 +35,8 @@ the following task
 
     rake particle:update
 
+## API Endpoints
+
+- `sensors` (full CRUD)
+- `measurements` (full CRUD)
+- `sponsors` (full CRUD)
