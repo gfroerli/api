@@ -5,9 +5,9 @@ class DeviceReporter
     initial_data.each(&method(:add_data))
   end
 
-  def add_data(data)
-    @measurements << Measurement.new(temperature: data[:temperature],
-                                     custom_attributes: data.except(:temperature))
+  def add_data(hash)
+    @measurements << Measurement.new(temperature: hash[:temperature],
+                                     custom_attributes: hash.except(:temperature))
   end
 
   def submit!
