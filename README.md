@@ -10,6 +10,19 @@ photon water sensors located in the particle cloud.
 
 ## Setup
 
+Install [rbenv](https://github.com/rbenv/rbenv) and
+[ruby-build](https://github.com/rbenv/ruby-build). On ArchLinux you can install
+them from the AUR:
+
+ * https://aur.archlinux.org/packages/rbenv/
+ * https://aur.archlinux.org/packages/ruby-build/
+
+To activate rbenv you need to add
+
+    eval "$(rbenv init -)"
+
+To your shell init file (`.bashrc`/`.zshrc`).
+
 Prepare the ruby environment
 
     git clone git@github.com:coredump-ch/water-sensor-api.git
