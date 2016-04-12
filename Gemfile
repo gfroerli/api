@@ -11,8 +11,6 @@ gem 'dotenv-rails'
 gem 'puma'
 gem 'rack-cors', :require => 'rack/cors'
 
-gem 'particlerb', require: false
-
 group :development do
   gem 'spring'
   gem 'rubocop'

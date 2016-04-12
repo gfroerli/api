@@ -55,10 +55,6 @@ GEM
     factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faraday (0.9.2)
-      multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.10.0)
-      faraday (>= 0.7.4, < 0.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -80,15 +76,11 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.11.2)
-    multipart-post (2.0.0)
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     parser (2.3.0.6)
       ast (~> 2.2)
-    particlerb (1.1.0)
-      faraday (~> 0.9.0)
-      faraday_middleware (>= 0.9.0)
     pg (0.18.4)
     powerpack (0.1.1)
     pry (0.10.3)
@@ -176,7 +168,6 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder
   mocha
-  particlerb
   pg
   pry-rails
   puma
