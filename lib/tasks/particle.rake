@@ -3,36 +3,16 @@ namespace :particle do
   task update: :environment do
     uri = URI("https://api.particle.io/v1/devices/events/?access_token=#{ENV['PARTICLE_ACCESS_TOKEN']}")
 
-    def parse_event(buffer)
-      regexp = %r{
-        event:\s.temperature
-        \s
-        data:\s(\{.*\})
-      }x
-
-      match = regexp.match(buffer)
-      return nil unless match
-      OpenStruct.new JSON.parse(match[1])
-    end
-
-    def handle_temperature_event(event)
+    parser = EventStreamParser.new('.*') do |event|
       DeviceReporter.new(event.coreid, [{ temperature: event.data }]).submit!
     end
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new(uri)
-      buffer = ''
 
       http.request(request) do |response|
-        response.read_body do |chunk|
-          if chunk.blank?
-            event = parse_event(buffer)
-            handle_temperature_event(event) if event
-            buffer.clear
-          else
-            buffer << chunk
-          end
-        end
+        response.value
+        response.read_body { |chunk| parser.add chunk }
       end
     end
 
