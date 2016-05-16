@@ -18,15 +18,14 @@ class EventStreamParser
   private
 
   def parse_event(buffer)
-    match = event_format.match(buffer)
+    match = event_format_regex.match(buffer)
     return nil unless match
     OpenStruct.new JSON.parse(match[1])
   end
 
-  def event_format
+  def event_format_regex
     %r{
-        event:\s.#{@event_name}
-        \s
+        event:\s#{@event_name}\n
         data:\s(\{.*\})
     }x
   end
