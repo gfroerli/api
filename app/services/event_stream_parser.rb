@@ -18,14 +18,16 @@ class EventStreamParser
   private
 
   def parse_event(buffer)
-    regexp = %r{
+    match = event_format.match(buffer)
+    return nil unless match
+    OpenStruct.new JSON.parse(match[1])
+  end
+
+  def event_format
+    %r{
         event:\s.#{@event_name}
         \s
         data:\s(\{.*\})
-      }x
-
-    match = regexp.match(buffer)
-    return nil unless match
-    OpenStruct.new JSON.parse(match[1])
+    }x
   end
 end
