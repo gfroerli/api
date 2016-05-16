@@ -1,18 +1,24 @@
 class DeviceReporter
-  def initialize(device_name, initial_data = [])
+  def initialize(device_name)
     @device_name = device_name
     @measurements = []
-    initial_data.each(&method(:add_data))
   end
 
-  def add_data(hash)
-    @measurements << Measurement.new(temperature: hash[:temperature],
-                                     custom_attributes: hash.except(:temperature))
-  end
-
-  def submit!
+  def report!(event_json)
+    measurement = parse_measurement(event_json.data)
     sensor = Sensor.find_or_create_by(device_name: @device_name)
-    sensor.measurements << @measurements
+    sensor.measurements << measurement
     sensor.save!
+  end
+
+  private
+
+  def parse_measurement(csv_data)
+    raw_hash = Hash[csv_data.split(',').map { |kv| kv.split('=') }.flatten]
+    Measurement.new temperature: raw_hash[:t1],
+                    custom_attributes: {
+                        voltage: raw_hash[:v],
+                        capacity: raw_hash[:c]
+                    }
   end
 end
