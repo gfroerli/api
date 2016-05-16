@@ -1,0 +1,29 @@
+:ok
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+event: spark/status
+data: {"data":"online","ttl":"60","published_at":"2016-05-16T16:17:41.095Z","coreid":"4a005b001451343334363036"}
+
+event: measurement
+data: {"data":"t1=23860,v=3.789,c=63.5","ttl":"300","published_at":"2016-05-16T16:17:42.638Z","coreid":"4a005b001451343334363036"}
+
+
+
+
+
