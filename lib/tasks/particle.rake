@@ -3,8 +3,8 @@ namespace :particle do
   task update: :environment do
     uri = URI("https://api.particle.io/v1/devices/events/?access_token=#{ENV['PARTICLE_ACCESS_TOKEN']}")
 
-    parser = EventStreamParse.new 'measurement' do |data_json|
-      DeviceReporter.new(data_json.coreid).report!(data_json)
+    parser = EventStreamParse.new 'measurement' do |event_data|
+      DeviceReporter.new(event_data.coreid).report!(event_data)
     end
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|

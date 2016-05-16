@@ -4,8 +4,8 @@ class DeviceReporter
     @measurements = []
   end
 
-  def report!(event_json)
-    measurement = parse_measurement(event_json.data)
+  def report!(event)
+    measurement = parse_measurement(event.data)
     sensor = Sensor.find_or_create_by(device_name: @device_name)
     sensor.measurements << measurement
     sensor.save!
@@ -14,7 +14,12 @@ class DeviceReporter
   private
 
   def parse_measurement(csv_data)
-    raw_hash = Hash[csv_data.split(',').map { |kv| kv.split('=') }.flatten]
+    raw_hash = {}
+    csv_data.split(',').each do |kv|
+      k, v = kv.split('=')
+      raw_hash[k.to_sym] = v
+    end
+
     Measurement.new temperature: raw_hash[:t1],
                     custom_attributes: {
                         voltage: raw_hash[:v],
