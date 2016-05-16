@@ -5,7 +5,7 @@ class EventStreamParser
     @on_parsed_block = on_parsed_block
   end
 
-  def add(chunk)
+  def feed(chunk)
     if chunk.blank?
       event = parse_event(@buffer)
       @on_parsed_block.call(event) if @on_parsed_block && event

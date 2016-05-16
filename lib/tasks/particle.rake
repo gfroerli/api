@@ -12,7 +12,7 @@ namespace :particle do
 
       http.request(request) do |response|
         response.value
-        response.read_body { |chunk| parser.add chunk }
+        response.read_body { |chunk| parser.feed chunk }
       end
     end
 
