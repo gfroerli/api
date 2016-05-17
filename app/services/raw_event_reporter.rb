@@ -1,4 +1,4 @@
-class DeviceReporter
+class RawEventReporter
   def report!(event)
     measurement = parse_measurement(event.data)
     sensor = Sensor.find_or_create_by(device_name: event.coreid)
