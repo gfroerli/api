@@ -10,8 +10,8 @@ class RawEventReporterTest < ActiveSupport::TestCase
 
   test 'should report measurement for new sensor' do
     assert_difference 'Sensor.count', 1 do
-      assert_difference 'Measurement.count', 1 do
-        @reporter.report!(@event)
+      assert_difference 'Measurement.count', 5 do
+        5.times { @reporter.report!(@event) }
       end
     end
   end
@@ -20,9 +20,9 @@ class RawEventReporterTest < ActiveSupport::TestCase
     sensor = create(:sensor)
 
     assert_no_difference 'Sensor.count' do
-      assert_difference 'sensor.measurements.count', 1 do
+      assert_difference 'sensor.measurements.count', 3 do
         @event.coreid = sensor.device_name
-        @reporter.report!(@event)
+        3.times { @reporter.report!(@event) }
       end
     end
   end
