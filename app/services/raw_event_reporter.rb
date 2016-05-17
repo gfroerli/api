@@ -17,8 +17,8 @@ class RawEventReporter
 
     Measurement.new temperature: raw_hash[:t1],
                     custom_attributes: {
-                        voltage: raw_hash[:v],
-                        capacity: raw_hash[:c]
+                      voltage: raw_hash[:v],
+                      capacity: raw_hash[:c]
                     }
   end
 end

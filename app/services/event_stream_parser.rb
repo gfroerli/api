@@ -24,9 +24,9 @@ class EventStreamParser
   end
 
   def event_format_regex
-    %r{
+    /
         event:\s#{@event_name}\n
         data:\s(\{.*\})
-    }x
+    /x
   end
 end
