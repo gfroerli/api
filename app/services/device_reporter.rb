@@ -1,12 +1,7 @@
 class DeviceReporter
-  def initialize(device_name)
-    @device_name = device_name
-    @measurements = []
-  end
-
   def report!(event)
     measurement = parse_measurement(event.data)
-    sensor = Sensor.find_or_create_by(device_name: @device_name)
+    sensor = Sensor.find_or_create_by(device_name: event.coreid)
     sensor.measurements << measurement
     sensor.save!
   end
