@@ -29,7 +29,15 @@ Prepare the ruby environment
     rbenv install
     gem install bundler
 
-Run the setup script
+### Prepare the database
+
+#### ArchLinux
+
+    pacman -S postgresql
+    sudo su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
+    createuser -U postgres --createdb $USERNAME
+
+### Run the setup script
 
     bin/setup
 
