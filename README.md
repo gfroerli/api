@@ -37,9 +37,9 @@ Run the setup script
 
     bin/rails server
 
-## Tests
+## Quality
 
-    bin/rails test
+    bin/check
 
 ## Tasks
 
