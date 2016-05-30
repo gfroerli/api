@@ -10,6 +10,14 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get index using filters' do
+    create_list(:measurement, 4)
+    get measurements_url, params: {sensor_id: Measurement.pluck(:sensor_id), last: 2}
+    assert_response :success
+    measurements = JSON.parse(response.body)
+    assert_equal(2, measurements.count)
+  end
+
   test 'should create measurement' do
     assert_difference('Measurement.count') do
       post measurements_url, params: { measurement: { custom_attributes: @measurement.custom_attributes,
