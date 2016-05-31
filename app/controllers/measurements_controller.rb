@@ -1,3 +1,4 @@
+# reference for filtering: http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#advanced-queries
 class MeasurementsController < ApplicationController
   before_action :set_measurement, only: [:show, :update, :destroy]
 
@@ -5,6 +6,8 @@ class MeasurementsController < ApplicationController
   # GET /measurements.json
   def index
     @measurements = Measurement.all
+    @measurements = @measurements.where(sensor_id: params[:sensor_id].split(',')) if params[:sensor_id].present?
+    @measurements = @measurements.last(params[:last]) if params[:last].present?
   end
 
   # GET /measurements/1
