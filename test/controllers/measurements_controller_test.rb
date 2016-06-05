@@ -12,7 +12,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get index using filters' do
     create_list(:measurement, 4)
-    get measurements_url, params: {sensor_id: Measurement.pluck(:sensor_id), last: 2}
+    get measurements_url, params: { sensor_id: Measurement.pluck(:sensor_id), last: 2 }
     assert_response :success
     measurements = JSON.parse(response.body)
     assert_equal(2, measurements.count)

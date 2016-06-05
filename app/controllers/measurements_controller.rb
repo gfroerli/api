@@ -7,6 +7,7 @@ class MeasurementsController < ApplicationController
   def index
     @measurements = Measurement.all
     @measurements = @measurements.where(sensor_id: params[:sensor_id].split(',')) if params[:sensor_id].present?
+    @measurements = @measurements.last_per_sensor(params[:last_per_sensor]) if params[:last_per_sensor].present?
     @measurements = @measurements.last(params[:last]) if params[:last].present?
   end
 

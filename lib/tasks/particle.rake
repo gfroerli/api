@@ -4,7 +4,10 @@ namespace :particle do
     uri = URI("https://api.particle.io/v1/devices/events/?access_token=#{ENV['PARTICLE_ACCESS_TOKEN']}")
 
     reporter = RawEventReporter.new
-    parser = EventStreamParser.new('measurement') { |event| reporter.report!(event) }
+    parser = EventStreamParser.new('measurement') do |event|
+      reporter.report!(event)
+      p event
+    end
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new(uri)
