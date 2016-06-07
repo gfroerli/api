@@ -6,7 +6,6 @@ namespace :particle do
     reporter = RawEventReporter.new
     parser = EventStreamParser.new('measurement') do |event|
       reporter.report!(event)
-      p event
     end
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
