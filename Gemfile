@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '>= 5.0.0.rc1', '< 5.1'
+gem 'rails', '~> 5.0'
 gem 'pg'
 gem 'redis', '~> 3.0'
 gem 'jbuilder'
