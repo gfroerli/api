@@ -4,6 +4,9 @@ require 'test_helper'
 class SponsorsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @sponsor = create(:sponsor)
+    ApplicationController.class_eval do
+      def require_private_access!; end
+    end
   end
 
   test 'should get index' do

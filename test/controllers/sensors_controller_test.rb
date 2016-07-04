@@ -4,6 +4,9 @@ require 'test_helper'
 class SensorsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @sensor = create(:sensor)
+    ApplicationController.class_eval do
+      def require_private_access!; end
+    end
   end
 
   test 'should get index' do
