@@ -12,10 +12,28 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get index using filters' do
     create_list(:measurement, 4)
+
     get measurements_url, params: { sensor_id: Measurement.pluck(:sensor_id), last: 2 }
     assert_response :success
     measurements = JSON.parse(response.body)
+
     assert_equal(2, measurements.count)
+  end
+
+  test 'should get index using partition filters' do
+    sensor_a = create(:sensor)
+    sensor_b = create(:sensor)
+    create_list(:measurement, 4, sensor: sensor_a)
+    create_list(:measurement, 3, sensor: sensor_b)
+
+    get measurements_url, params: { last_per_sensor: 2, last: 3 }
+    assert_response :success
+    measurements = JSON.parse(response.body)
+
+    assert_equal(3, measurements.count)
+    assert_equal(sensor_a.id, measurements.first['sensor_id'])
+    assert_equal(sensor_b.id, measurements.second['sensor_id'])
+    assert_equal(sensor_b.id, measurements.third['sensor_id'])
   end
 
   test 'should create measurement' do
