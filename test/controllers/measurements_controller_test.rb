@@ -4,9 +4,12 @@ require 'test_helper'
 class MeasurementsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @measurement = create(:measurement)
-    ApplicationController.class_eval do
-      def require_private_access!; end
+    MeasurementsController.class_eval do
+      def require_private_access!;
+        true
+      end
     end
+    @controller.require_private_access!
   end
 
   test 'should get index' do
