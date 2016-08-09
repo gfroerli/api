@@ -75,3 +75,9 @@ You can run the entire setup with docker compose:
     docker-compose up -d
 
 Now the server is running on `http://localhost:3000/`.
+
+If you're using *docker-machine* the server is running inside your virtual
+machine which has a different IP:
+
+    docker-machine ip default
+
