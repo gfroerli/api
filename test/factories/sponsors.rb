@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :sponsor do
     name 'Hochschule für Technik Rapperswil'

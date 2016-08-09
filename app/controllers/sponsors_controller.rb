@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SponsorsController < ApplicationController
   before_action :set_sponsor, only: [:show, :update, :destroy]
 
