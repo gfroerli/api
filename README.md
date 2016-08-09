@@ -10,6 +10,9 @@ photon water sensors located in the particle cloud.
 
 ## Setup
 
+(Note: If you don't want to manually set up the entire dev environment, skip
+down to the Docker section!)
+
 Install [rbenv](https://github.com/rbenv/rbenv) and
 [ruby-build](https://github.com/rbenv/ruby-build). On ArchLinux you can install
 them from the AUR:
@@ -58,6 +61,23 @@ the following task
 
 ## API Endpoints
 
-- `sensors` (full CRUD)
-- `measurements` (full CRUD)
-- `sponsors` (full CRUD)
+Base path is `/api/`.
+
+- `/sensors` (full CRUD)
+- `/measurements` (full CRUD)
+- `/sponsors` (full CRUD)
+
+## Docker
+
+You can run the entire setup with docker compose:
+
+    docker-compose build
+    docker-compose up -d
+
+Now the server is running on `http://localhost:3000/`.
+
+If you're using *docker-machine* the server is running inside your virtual
+machine which has a different IP:
+
+    docker-machine ip default
+

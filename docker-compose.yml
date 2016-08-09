@@ -1,0 +1,37 @@
+# Set up a database- and an api server.
+# Make sure to change the database password and secret key
+# before running this in production!
+
+version: '2'
+
+volumes:
+
+  pgdata:
+    driver: local
+
+services:
+
+  db:
+    image: postgres:9.5
+    restart: always
+    expose:
+      - 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: api
+      POSTGRES_PASSWORD: "CHANGEME_PASSWORD"
+      POSTGRES_DB: watertemp_api
+
+  api:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      SECRET_KEY_BASE: "CHANGEME_KEY"
+      RAILS_MAX_THREADS: 2
+      WEB_CONCURRENCY: 2
+      DATABASE_URL: "postgresql://api:CHANGEME_PASSWORD@db/watertemp_api"
