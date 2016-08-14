@@ -6,6 +6,11 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     @measurement = create(:measurement)
   end
 
+  test 'should show measurement' do
+    get measurement_url(@measurement), env: public_auth_header
+    assert_response :success
+  end
+
   test 'should get index' do
     get measurements_url, params: nil, env: public_auth_header
     assert_response :success
@@ -47,11 +52,6 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response 201
-  end
-
-  test 'should show measurement' do
-    get measurement_url(@measurement), env: public_auth_header
-    assert_response :success
   end
 
   test 'should update measurement' do

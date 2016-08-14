@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class SponsorsController < ApplicationController
-  before_action :require_private_access!
   before_action :set_sponsor, only: [:show, :update, :destroy]
 
   # GET /sponsors

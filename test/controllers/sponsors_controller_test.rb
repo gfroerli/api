@@ -4,13 +4,15 @@ require 'test_helper'
 class SponsorsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @sponsor = create(:sponsor)
-    ApplicationController.class_eval do
-      def require_private_access!; end
-    end
   end
 
   test 'should get index' do
-    get sponsors_url
+    get sponsors_url, env: public_auth_header
+    assert_response :success
+  end
+
+  test 'should show sponsor' do
+    get sponsor_url(@sponsor), env: public_auth_header
     assert_response :success
   end
 
@@ -18,27 +20,24 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Sponsor.count') do
       post sponsors_url, params: { sponsor: { active: @sponsor.active,
                                               description: @sponsor.description,
-                                              name: @sponsor.name } }
+                                              name: @sponsor.name } },
+                         env: private_auth_header
     end
 
     assert_response 201
   end
 
-  test 'should show sponsor' do
-    get sponsor_url(@sponsor)
-    assert_response :success
-  end
-
   test 'should update sponsor' do
     patch sponsor_url(@sponsor), params: { sponsor: { active: @sponsor.active,
                                                       description: @sponsor.description,
-                                                      name: @sponsor.name } }
+                                                      name: @sponsor.name } },
+                                 env: private_auth_header
     assert_response 200
   end
 
   test 'should destroy sponsor' do
     assert_difference('Sponsor.count', -1) do
-      delete sponsor_url(@sponsor)
+      delete sponsor_url(@sponsor), env: private_auth_header
     end
 
     assert_response 204
@@ -52,14 +51,14 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
 
     test 'should NOT create sponsor' do
       assert_no_difference('Sponsor.count') do
-        post sponsors_url, params: { sponsor: { blub: 'gach' } }
+        post sponsors_url, params: { sponsor: { blub: 'gach' } }, env: private_auth_header
       end
 
       assert_response 422
     end
 
     test 'should NOT update sponsor' do
-      patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }
+      patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }, env: private_auth_header
       assert_response 422
     end
   end
