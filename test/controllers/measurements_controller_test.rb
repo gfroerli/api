@@ -5,7 +5,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @measurement = create(:measurement)
     MeasurementsController.class_eval do
-      def require_private_access!;
+      def require_private_access!
         true
       end
     end
