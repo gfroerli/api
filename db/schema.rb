@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20160607203330) do
 
   create_table "api_consumers", force: :cascade do |t|
     t.string   "public_api_key"
+    t.string   "private_api_key"
     t.string   "contact_email"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

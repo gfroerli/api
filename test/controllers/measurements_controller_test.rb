@@ -4,23 +4,18 @@ require 'test_helper'
 class MeasurementsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @measurement = create(:measurement)
-    MeasurementsController.class_eval do
-      def require_private_access!
-        true
-      end
-    end
-    @controller.require_private_access!
   end
 
   test 'should get index' do
-    get measurements_url
+    get measurements_url, params: nil, env: public_auth_header
     assert_response :success
   end
 
   test 'should get index using filters' do
     create_list(:measurement, 4)
 
-    get measurements_url, params: { sensor_id: Measurement.pluck(:sensor_id), last: 2 }
+    get measurements_url, params: { sensor_id: Measurement.pluck(:sensor_id), last: 2 },
+                          env: public_auth_header
     assert_response :success
     measurements = JSON.parse(response.body)
 
@@ -33,7 +28,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     create_list(:measurement, 4, sensor: sensor_a)
     create_list(:measurement, 3, sensor: sensor_b)
 
-    get measurements_url, params: { last_per_sensor: 2, last: 3 }
+    get measurements_url, params: { last_per_sensor: 2, last: 3 }, env: public_auth_header
     assert_response :success
     measurements = JSON.parse(response.body)
 
@@ -47,27 +42,29 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Measurement.count') do
       post measurements_url, params: { measurement: { custom_attributes: @measurement.custom_attributes,
                                                       sensor_id: @measurement.sensor.id,
-                                                      temperature: @measurement.temperature } }
+                                                      temperature: @measurement.temperature } },
+                             env: private_auth_header
     end
 
     assert_response 201
   end
 
   test 'should show measurement' do
-    get measurement_url(@measurement)
+    get measurement_url(@measurement), env: public_auth_header
     assert_response :success
   end
 
   test 'should update measurement' do
     patch measurement_url(@measurement), params: { measurement: { custom_attributes: @measurement.custom_attributes,
                                                                   sensor_id: @measurement.sensor.id,
-                                                                  temperature: @measurement.temperature } }
+                                                                  temperature: @measurement.temperature } },
+                                         env: private_auth_header
     assert_response 200
   end
 
   test 'should destroy measurement' do
     assert_difference('Measurement.count', -1) do
-      delete measurement_url(@measurement)
+      delete measurement_url(@measurement), env: private_auth_header
     end
 
     assert_response 204
@@ -81,14 +78,15 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
     test 'should NOT create measurement' do
       assert_no_difference('Measurement.count') do
-        post measurements_url, params: { measurement: { blub: 'gach' } }
+        post measurements_url, params: { measurement: { blub: 'gach' } }, env: private_auth_header
       end
 
       assert_response 422
     end
 
     test 'should NOT update measurement' do
-      patch measurement_url(@measurement), params: { measurement: { blub: 'gach' } }
+      patch measurement_url(@measurement), params: { measurement: { blub: 'gach' } },
+                                           env: private_auth_header
       assert_response 422
     end
   end
