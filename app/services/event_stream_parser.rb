@@ -2,7 +2,7 @@
 class EventStreamParser
   def initialize(event_name, &on_parsed_block)
     @event_name = event_name
-    @buffer = ''
+    @buffer = String.new
     @on_parsed_block = on_parsed_block
   end
 
