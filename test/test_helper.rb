@@ -14,3 +14,17 @@ module ActiveSupport
     include FactoryGirl::Syntax::Methods
   end
 end
+
+def public_auth_header
+  api_key = ActionController::HttpAuthentication::Token.encode_credentials(
+    create(:api_consumer).public_api_key
+  )
+  { authorization: api_key }
+end
+
+def private_auth_header
+  api_key = ActionController::HttpAuthentication::Token.encode_credentials(
+    create(:private_api_consumer).private_api_key
+  )
+  { authorization: api_key }
+end

@@ -67,6 +67,12 @@ Base path is `/api/`.
 - `/measurements` (full CRUD)
 - `/sponsors` (full CRUD)
 
+### Authentication
+
+The API uses token based authentication. A sample request looks like this:
+
+    curl 'http://localhost:3000/api/measurements' -H "Authorization: Bearer 0123456789ABCDEF" -v
+
 ## Docker
 
 You can run the entire setup with docker compose:

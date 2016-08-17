@@ -45,3 +45,5 @@ seeds.each_with_index do |seed, i|
     Measurement.create! temperature: rand(3000)/100, custom_attributes: Hash[sample_reading: '5.645V'], sensor: sensor
   end
 end
+
+ApiConsumer.create!(public_api_key: '0123456789ABCDEF', contact_email: 'dev@coredump.ch')
