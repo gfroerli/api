@@ -52,4 +52,6 @@ seeds.each_with_index do |seed, i|
   end
 end
 
-ApiConsumer.create!(public_api_key: '0123456789ABCDEF', contact_email: 'dev@coredump.ch')
+ApiConsumer.create!(public_api_key: '0123456789ABCDEF',
+                    private_api_key: '0123456789ABCDEF',
+                    contact_email: 'dev@coredump.ch')
