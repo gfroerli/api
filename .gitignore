@@ -20,3 +20,6 @@
 
 # Vim
 *.swp
+
+# Rubymine
+.idea/
