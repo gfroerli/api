@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
 
   def require_public_access!
     authenticate_or_request_with_http_token do |token, _options|
-      ApiConsumer.exists?(public_api_key: token)
+      ApiConsumer.exists?(public_api_key: token) || ApiConsumer.exists?(private_api_key: token)
     end
   end
 end
