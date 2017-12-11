@@ -27,4 +27,9 @@ class ApplicationController < ActionController::API
       ApiConsumer.exists?(public_api_key: token) || ApiConsumer.exists?(private_api_key: token)
     end
   end
+
+  def request_http_token_authentication(realm = "Application", message = nil)
+    self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
+    render :json => {:error => "HTTP Token: Access denied."}, :status => :unauthorized
+  end
 end
