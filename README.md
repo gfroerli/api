@@ -8,56 +8,17 @@ photon water sensors located in the particle cloud.
 * Ruby 2.3
 * Rails 5
 
-## Setup
-
-(Note: If you don't want to manually set up the entire dev environment, skip
-down to the Docker section!)
-
-Install [rbenv](https://github.com/rbenv/rbenv) and
-[ruby-build](https://github.com/rbenv/ruby-build). On ArchLinux you can install
-them from the AUR:
-
- * https://aur.archlinux.org/packages/rbenv/
- * https://aur.archlinux.org/packages/ruby-build/
-
-To activate rbenv you need to add
-
-    eval "$(rbenv init -)"
-
-To your shell init file (`.bashrc`/`.zshrc`).
-
-Prepare the ruby environment
-
-    git clone git@github.com:coredump-ch/water-sensor-api.git
-    rbenv install
-    gem install bundler
-
-### Prepare the database
-
-#### ArchLinux
-
-    pacman -S postgresql
-    sudo su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
-    createuser -U postgres --createdb $USERNAME
-
-### Run the setup script
+## Installation
 
     bin/setup
 
-## Dev Server
+## Run
 
-    bin/rails server
+    bin/run
 
-## Quality
+## Tests
 
     bin/check
-
-## Tasks
-
-You can query the particle cloud and update the APIs sensor data by running
-the following task
-
-    rake particle:update
 
 ## API Endpoints
 
@@ -86,4 +47,34 @@ If you're using *docker-machine* the server is running inside your virtual
 machine which has a different IP:
 
     docker-machine ip default
+
+## ArchLinux
+
+(Note: If you don't want to manually set up the entire dev environment, skip
+down to the Docker section!)
+
+Install [rbenv](https://github.com/rbenv/rbenv) and
+[ruby-build](https://github.com/rbenv/ruby-build). On ArchLinux you can install
+them from the AUR:
+
+ * https://aur.archlinux.org/packages/rbenv/
+ * https://aur.archlinux.org/packages/ruby-build/
+
+To activate rbenv you need to add
+
+    eval "$(rbenv init -)"
+
+To your shell init file (`.bashrc`/`.zshrc`).
+
+### Prepare the ruby environment
+
+    git clone git@github.com:coredump-ch/water-sensor-api.git
+    rbenv install
+    gem install bundler
+
+### Prepare the database
+
+    pacman -S postgresql
+    sudo su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
+    createuser -U postgres --createdb $USERNAME
 

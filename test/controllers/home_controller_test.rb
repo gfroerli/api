@@ -6,4 +6,9 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_response :success
   end
+
+  test 'should get ndex' do
+    get 'sdfsdfsdf'
+    assert_response :success
+  end
 end
