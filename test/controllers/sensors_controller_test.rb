@@ -11,6 +11,12 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get the last measurement with each sensor' do
+    @sensor.measurements << create(:measurement)
+    get sensors_url, env: public_auth_header
+    assert_not_empty(JSON.parse(response.body).first['last_measurement'])
+  end
+
   test 'should show sensor' do
     get sensor_url(@sensor), env: public_auth_header
     assert_response :success
