@@ -4,8 +4,8 @@ ruby File.read('.ruby-version').strip
 
 gem 'dotenv-rails'
 gem 'jbuilder'
-gem 'pg'
-gem 'rails', '~> 5.0'
+gem 'pg', '~> 0.18'
+gem 'rails', '~> 5.0.0'
 gem 'redis', '~> 3.0'
 
 gem 'puma'
