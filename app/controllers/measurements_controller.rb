@@ -14,6 +14,14 @@ class MeasurementsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  def aggregated
+    index
+    @measurements = @measurements.group('DATE(created_at)')
+    @minimum_temperature = @measurements.minimum(:temperature)
+    @maximum_temperature = @measurements.maximum(:temperature)
+    @average_temperature = @measurements.average(:temperature)
+  end
+
   # GET /measurements/1
   # GET /measurements/1.json
   def show; end

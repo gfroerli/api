@@ -1,0 +1,3 @@
+json.minimum_temperature @minimum_temperature
+json.maximum_temperature @maximum_temperature
+json.average_temperature @average_temperature
