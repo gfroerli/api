@@ -1,7 +1,9 @@
+
 # frozen_string_literal: true
+
 # reference for filtering: http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#advanced-queries
 class MeasurementsController < ApplicationController
-  before_action :set_measurement, only: [:show, :update, :destroy]
+  before_action :set_measurement, only: %i[show update destroy]
 
   # GET /measurements
   # GET /measurements.json
@@ -17,8 +19,7 @@ class MeasurementsController < ApplicationController
 
   # GET /measurements/1
   # GET /measurements/1.json
-  def show
-  end
+  def show; end
 
   # POST /measurements
   # POST /measurements.json

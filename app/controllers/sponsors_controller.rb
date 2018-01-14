@@ -1,6 +1,8 @@
+
 # frozen_string_literal: true
+
 class SponsorsController < ApplicationController
-  before_action :set_sponsor, only: [:show, :update, :destroy]
+  before_action :set_sponsor, only: %i[show update destroy]
 
   # GET /sponsors
   # GET /sponsors.json
@@ -10,8 +12,7 @@ class SponsorsController < ApplicationController
 
   # GET /sponsors/1
   # GET /sponsors/1.json
-  def show
-  end
+  def show; end
 
   # POST /sponsors
   # POST /sponsors.json

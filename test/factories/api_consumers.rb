@@ -1,4 +1,6 @@
+
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :api_consumer do
     public_api_key { SecureRandom.hex }

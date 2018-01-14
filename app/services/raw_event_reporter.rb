@@ -1,4 +1,6 @@
+
 # frozen_string_literal: true
+
 class RawEventReporter
   def report!(event)
     measurement = parse_measurement(event.data)
