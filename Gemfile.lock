@@ -51,10 +51,10 @@ GEM
       dotenv (= 2.2.1)
       railties (>= 3.2, < 5.2)
     erubi (1.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -163,7 +163,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   dotenv-rails
-  factory_girl_rails
+  factory_bot_rails
   jbuilder
   mocha
   pg (~> 0.21)

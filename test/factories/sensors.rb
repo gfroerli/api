@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sensor do
     device_name 'photon_device_nr4562'
     caption 'HSR Mark I'

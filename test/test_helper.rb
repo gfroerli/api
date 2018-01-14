@@ -10,7 +10,7 @@ require 'mocha/mini_test'
 
 module ActiveSupport
   class TestCase
-    include FactoryGirl::Syntax::Methods
+    include FactoryBot::Syntax::Methods
   end
 end
 
