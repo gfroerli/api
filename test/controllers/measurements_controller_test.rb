@@ -9,6 +9,11 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     @measurement = create(:measurement)
   end
 
+  test 'should NOT show measurement if unauthorized' do
+    get measurement_url(@measurement)
+    assert_response :unauthorized
+  end
+
   test 'should show measurement' do
     get measurement_url(@measurement), env: public_auth_header
     assert_response :success
