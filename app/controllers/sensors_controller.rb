@@ -1,6 +1,5 @@
-# frozen_string_literal: true
 class SensorsController < ApplicationController
-  before_action :set_sensor, only: [:show, :update, :destroy]
+  before_action :set_sensor, only: %i[show update destroy]
 
   # GET /sensors
   # GET /sensors.json
@@ -10,8 +9,7 @@ class SensorsController < ApplicationController
 
   # GET /sensors/1
   # GET /sensors/1.json
-  def show
-  end
+  def show; end
 
   # POST /sensors
   # POST /sensors.json

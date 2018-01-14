@@ -1,8 +1,7 @@
-# frozen_string_literal: true
 class EventStreamParser
   def initialize(event_name, &on_parsed_block)
     @event_name = event_name
-    @buffer = String.new
+    @buffer = ''
     @on_parsed_block = on_parsed_block
   end
 

@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
@@ -9,7 +8,7 @@ class ApplicationController < ActionController::API
   def authorize!
     return if controller_name == 'home' && action_name == 'index'
 
-    if %w(measurements sensors sponsors).include?(controller_name) && %w(index show).include?(action_name)
+    if %w[measurements sensors sponsors].include?(controller_name) && %w[index show].include?(action_name)
       return require_public_access!
     end
 
@@ -28,8 +27,8 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def request_http_token_authentication(realm = "Application", message = nil)
-    self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-    render :json => {:error => "HTTP Token: Access denied."}, :status => :unauthorized
+  def request_http_token_authentication(realm = 'Application', _message = nil)
+    headers['WWW-Authenticate'] = %(Token realm="#{realm.delete('"')}")
+    render json: { error: 'HTTP Token: Access denied.' }, status: :unauthorized
   end
 end

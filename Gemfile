@@ -2,18 +2,18 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '~> 5.0'
-gem 'pg'
-gem 'redis', '~> 3.0'
-gem 'jbuilder'
 gem 'dotenv-rails'
+gem 'jbuilder'
+gem 'pg'
+gem 'rails', '~> 5.0'
+gem 'redis', '~> 3.0'
 
 gem 'puma'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development do
-  gem 'spring'
   gem 'rubocop'
+  gem 'spring'
 end
 
 group :development, :test do
@@ -22,8 +22,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'mocha'
   gem 'factory_girl_rails'
+  gem 'mocha'
   gem 'simplecov', require: false
 end
 

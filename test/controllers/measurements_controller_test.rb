@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require 'test_helper'
 
 def measurements
@@ -73,7 +72,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       create_list(:measurement, 4)
 
       get measurements_url, params: { sensor_id: Measurement.pluck(:sensor_id), last: 2 },
-          env: public_auth_header
+                            env: public_auth_header
       assert_response :success
       assert_equal(2, measurements.count)
     end
