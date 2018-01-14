@@ -8,9 +8,10 @@ class MeasurementsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def index
     @measurements = Measurement.all
-    @measurements = @measurements.where(sensor_id: params[:sensor_id].split(',')) if params[:sensor_id].present?
-    @measurements = @measurements.last_per_sensor(params[:last_per_sensor]) if params[:last_per_sensor].present?
-    @measurements = @measurements.last(params[:last]) if params[:last].present?
+    filter_by_ids params[:sensor_id]
+    filter_by_created_at params[:created_after], params[:created_before]
+    limit_count_per_sensor params[:last_per_sensor]
+    limit_count params[:last]
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -57,5 +58,22 @@ class MeasurementsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def measurement_params
     params.require(:measurement).permit(:temperature, :sensor_id, custom_attributes: [])
+  end
+
+  def filter_by_ids(ids)
+    @measurements = @measurements.where(sensor_id: ids.split(',')) if ids.present?
+  end
+
+  def filter_by_created_at(created_after, created_before)
+    @measurements = @measurements.where('created_at > ?', created_after) if created_after.present?
+    @measurements = @measurements.where('created_at < ?', created_before) if created_before.present?
+  end
+
+  def limit_count_per_sensor(last_per_sensor)
+    @measurements = @measurements.last_per_sensor(last_per_sensor) if last_per_sensor.present?
+  end
+
+  def limit_count(last)
+    @measurements = @measurements.last(last) if last.present?
   end
 end
