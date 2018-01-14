@@ -1,6 +1,3 @@
-
-# frozen_string_literal: true
-
 class EventStreamParser
   def initialize(event_name, &on_parsed_block)
     @event_name = event_name

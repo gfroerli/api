@@ -1,6 +1,3 @@
-
-# frozen_string_literal: true
-
 class SensorsController < ApplicationController
   before_action :set_sensor, only: %i[show update destroy]
 

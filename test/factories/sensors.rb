@@ -1,6 +1,3 @@
-
-# frozen_string_literal: true
-
 FactoryGirl.define do
   factory :sensor do
     device_name 'photon_device_nr4562'

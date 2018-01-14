@@ -1,6 +1,3 @@
-
-# frozen_string_literal: true
-
 # reference for filtering: http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#advanced-queries
 class MeasurementsController < ApplicationController
   before_action :set_measurement, only: %i[show update destroy]

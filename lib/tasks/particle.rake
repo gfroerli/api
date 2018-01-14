@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :particle do
   desc 'update sensor status and data'
   task update: :environment do
