@@ -1,4 +1,4 @@
-FROM ruby:2.3.1
+FROM ruby:2.5.0
 MAINTAINER Danilo Bargen <mail@dbrgn.ch>
 
 # Env vars
