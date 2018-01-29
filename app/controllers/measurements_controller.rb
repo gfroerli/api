@@ -71,8 +71,9 @@ class MeasurementsController < ApplicationController
   end
 
   def filter_by_created_at(created_after, created_before)
-    @measurements = @measurements.where('created_at > ?', created_after) if created_after.present?
-    @measurements = @measurements.where('created_at < ?', created_before) if created_before.present?
+    from = Time.zone.parse(created_after.to_s) || 1_000.years.ago
+    to = Time.zone.parse(created_before.to_s) || 1.second.from_now
+    @measurements = @measurements.where(created_at: from..to)
   end
 
   def limit_count_per_sensor(last_per_sensor)
