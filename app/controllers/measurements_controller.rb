@@ -77,10 +77,10 @@ class MeasurementsController < ApplicationController
   end
 
   def limit_count_per_sensor(last_per_sensor)
-    @measurements = @measurements.last_per_sensor(last_per_sensor) if last_per_sensor.present?
+    @measurements = @measurements.last_per_sensor(last_per_sensor.to_i) if last_per_sensor.present?
   end
 
   def limit_count(last)
-    @measurements = @measurements.last(last) if last.present?
+    @measurements = @measurements.last(last.to_i) if last.present?
   end
 end
