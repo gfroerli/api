@@ -72,7 +72,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  class MeasurementsControllerTest < ActionDispatch::IntegrationTest
+  class FilterMeasurementsControllerTest < ActionDispatch::IntegrationTest
     test 'should get index using filters' do
       create_list(:measurement, 4)
 
@@ -112,6 +112,28 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
       get measurements_url, params: { created_after: 1.day.ago }, env: public_auth_header
       assert_equal(0, measurements.count)
+    end
+  end
+
+  class AggregateMeasurementsControllerTest < ActionDispatch::IntegrationTest
+    test 'should return average, minimum and maximum' do
+      create :measurement, temperature: 1, created_at: 1.day.ago
+      create :measurement, temperature: 2, created_at: 2.days.ago
+      create :measurement, temperature: 3, created_at: 2.days.ago
+      create :measurement, temperature: 1, created_at: 3.days.ago
+      create :measurement, temperature: 1, created_at: 3.days.ago
+
+      get aggregated_measurements_url, env: public_auth_header
+      aggregated_numbers = JSON.parse(response.body)
+      assert_response :success
+
+      assert_equal(3, aggregated_numbers['minimum_temperature'].count)
+      assert_equal(3, aggregated_numbers['maximum_temperature'].count)
+      assert_equal(3, aggregated_numbers['average_temperature'].count)
+
+      assert_equal('2.0', aggregated_numbers['minimum_temperature'][2.days.ago.to_date.iso8601])
+      assert_equal('3.0', aggregated_numbers['maximum_temperature'][2.days.ago.to_date.iso8601])
+      assert_equal('2.5', aggregated_numbers['average_temperature'][2.days.ago.to_date.iso8601])
     end
   end
 end
