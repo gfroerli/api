@@ -113,6 +113,18 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       get measurements_url, params: { created_after: 1.day.ago }, env: public_auth_header
       assert_equal(0, measurements.count)
     end
+
+    test 'should filter in UTC if given CET' do
+      m1 = create(:measurement, created_at: '2018-01-29T20:02:00+01:00') # 20:02 in Rapperswil
+
+      get measurements_url, params: { created_after: '2018-01-29T20:00:00+01:00',
+                                      created_before: '2018-01-29T20:04:00+01:00' },
+                            env: public_auth_header
+
+      assert_equal(1, measurements.count)
+      assert_equal(m1.id, measurements.first['id'])
+      assert_equal(m1.created_at, Time.zone.iso8601(measurements.first['created_at']))
+    end
   end
 
   class AggregateMeasurementsControllerTest < ActionDispatch::IntegrationTest
