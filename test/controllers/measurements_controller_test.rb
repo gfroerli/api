@@ -125,6 +125,18 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       assert_equal(m1.id, measurements.first['id'])
       assert_equal(m1.created_at, Time.zone.iso8601(measurements.first['created_at']))
     end
+
+    test 'should not stumble over garbage numbers in the parameters' do
+      create_list(:measurement, 4)
+
+      get measurements_url, params: { last: 'garbage' }, env: public_auth_header
+      assert_response :success
+      assert_equal(0, measurements.count)
+
+      get measurements_url, params: { last_per_sensor: 'garbage' }, env: public_auth_header
+      assert_response :success
+      assert_equal(0, measurements.count)
+    end
   end
 
   class AggregateMeasurementsControllerTest < ActionDispatch::IntegrationTest
