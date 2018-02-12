@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     end
     resources :sensors
     resources :sponsors
+    resources :sponsor_images, except: [:index]
   end
 end
