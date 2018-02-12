@@ -10,6 +10,10 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Naming/FileName:
+  Exclude:
+  - 'Gemfile'
+
 AllCops:
   TargetRubyVersion: 2.3
   Include:
