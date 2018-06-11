@@ -6,7 +6,7 @@ the API
 
 ## Requirements
 
-* Ruby 2.3
+* Ruby 2.5
 * Rails 5
 
 ## Installation
