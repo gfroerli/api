@@ -68,7 +68,8 @@ To your shell init file (`.bashrc`/`.zshrc`).
 
 ### Prepare the ruby environment
 
-    git clone git@github.com:coredump-ch/water-sensor-api.git
+    git clone git@github.com:gfroerli/gfroerli-api.git
+    cd gfroerli-api
     rbenv install
     gem install bundler
 
