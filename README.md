@@ -1,11 +1,12 @@
 # Coredump Water Sensor API
 
-This project provides an API for querying sensor data of our
-photon water sensors located in the particle cloud.
+This project provides an API for querying sensor data of our LoRaWAN based
+water temperature sensors.  Checkout https://gfrör.li for an application using
+the API
 
 ## Requirements
 
-* Ruby 2.3
+* Ruby 2.5
 * Rails 5
 
 ## Installation
@@ -50,8 +51,8 @@ machine which has a different IP:
 
 ## ArchLinux
 
-(Note: If you don't want to manually set up the entire dev environment, skip
-down to the Docker section!)
+(Note: If you don't want to manually set up the entire dev environment, use the
+Docker instructions above!)
 
 Install [rbenv](https://github.com/rbenv/rbenv) and
 [ruby-build](https://github.com/rbenv/ruby-build). On ArchLinux you can install
@@ -68,7 +69,8 @@ To your shell init file (`.bashrc`/`.zshrc`).
 
 ### Prepare the ruby environment
 
-    git clone git@github.com:coredump-ch/water-sensor-api.git
+    git clone git@github.com:gfroerli/gfroerli-api.git
+    cd gfroerli-api
     rbenv install
     gem install bundler
 
