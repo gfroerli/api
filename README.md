@@ -50,8 +50,8 @@ machine which has a different IP:
 
 ## ArchLinux
 
-(Note: If you don't want to manually set up the entire dev environment, skip
-down to the Docker section!)
+(Note: If you don't want to manually set up the entire dev environment, use the
+Docker instructions above!)
 
 Install [rbenv](https://github.com/rbenv/rbenv) and
 [ruby-build](https://github.com/rbenv/ruby-build). On ArchLinux you can install
