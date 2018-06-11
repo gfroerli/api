@@ -1,7 +1,8 @@
 # Coredump Water Sensor API
 
-This project provides an API for querying sensor data of our
-photon water sensors located in the particle cloud.
+This project provides an API for querying sensor data of our LoRaWAN based
+water temperature sensors.  Checkout https://gfrör.li for an application using
+the API
 
 ## Requirements
 
