@@ -2,7 +2,7 @@
 
 This project provides an API for querying sensor data of our LoRaWAN based
 water temperature sensors.  Checkout https://gfrör.li for an application using
-the API
+the API.
 
 ## Requirements
 
@@ -34,6 +34,13 @@ Base path is `/api/`.
 The API uses token based authentication. A sample request looks like this:
 
     curl 'http://localhost:3000/api/measurements' -H "Authorization: Bearer 0123456789ABCDEF" -v
+
+All index and show resources are publicly available while writing to the API is permitted only
+consumers who provide a private api key.
+
+You can post a measurement to the api the following way (use the private api key of ApiConsumer):
+
+    curl -X POST 'http://localhost:3000/api/measurements' -H "Content-Type: application/json" -H "Authorization: Bearer 0123456789ABCDEF" -d '{"sensor_id": 1, "temperature": 20.7, "custom_attributes": {"foo": "bar"}}' 
 
 ## Docker
 
