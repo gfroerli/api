@@ -1,7 +1,9 @@
 class RawEventReporter
   def report!(event)
     measurement = parse_measurement(event.data)
-    sensor = Sensor.find_or_create_by(device_name: event.coreid)
+    sensor = Sensor.find_or_create_by!(device_name: event.coreid) do |s|
+      s.caption = event.coreid
+    end
     sensor.measurements << measurement
     sensor.save!
   end
