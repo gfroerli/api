@@ -10,45 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915183926) do
+ActiveRecord::Schema.define(version: 2018_06_18_203010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "api_consumers", force: :cascade do |t|
-    t.string   "public_api_key"
-    t.string   "private_api_key"
-    t.string   "contact_email"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table "api_consumers", id: :serial, force: :cascade do |t|
+    t.string "public_api_key"
+    t.string "private_api_key"
+    t.string "contact_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "caption"
   end
 
-  create_table "measurements", force: :cascade do |t|
-    t.decimal  "temperature"
-    t.json     "custom_attributes"
-    t.integer  "sensor_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["sensor_id"], name: "index_measurements_on_sensor_id", using: :btree
+  create_table "measurements", id: :serial, force: :cascade do |t|
+    t.decimal "temperature", null: false
+    t.json "custom_attributes"
+    t.integer "sensor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sensor_id"], name: "index_measurements_on_sensor_id"
   end
 
-  create_table "sensors", force: :cascade do |t|
-    t.string   "device_name"
-    t.string   "caption"
-    t.integer  "sponsor_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.float    "latitude"
-    t.float    "longitude"
-    t.index ["sponsor_id"], name: "index_sensors_on_sponsor_id", using: :btree
+  create_table "sensors", id: :serial, force: :cascade do |t|
+    t.string "device_name", null: false
+    t.string "caption", default: "", null: false
+    t.integer "sponsor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.index ["sponsor_id"], name: "index_sensors_on_sponsor_id"
   end
 
-  create_table "sponsors", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.boolean  "active"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "sponsors", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
