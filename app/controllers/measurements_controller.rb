@@ -63,7 +63,7 @@ class MeasurementsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def measurement_params
-    params.require(:measurement).permit(:temperature, :sensor_id, custom_attributes: [])
+    params.require(:measurement).permit(:temperature, :sensor_id, custom_attributes: {})
   end
 
   def filter_by_ids(ids)

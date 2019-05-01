@@ -32,6 +32,12 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
                              env: private_auth_header
     end
 
+    new_measurements = Measurement.last
+
+    assert_equal(@measurement.custom_attributes, new_measurements.custom_attributes)
+    assert_equal(@measurement.sensor, new_measurements.sensor)
+    assert_equal(@measurement.temperature, new_measurements.temperature)
+
     assert_response 201
   end
 
