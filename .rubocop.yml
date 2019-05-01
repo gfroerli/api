@@ -12,14 +12,7 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Naming/FileName:
-  Exclude:
-  - 'Gemfile'
-
 AllCops:
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
   Exclude:
     - 'bin/**/*'
     - 'script/**/*'
