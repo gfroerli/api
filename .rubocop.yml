@@ -1,3 +1,5 @@
+require: rubocop-performance
+
 Rails:
     Enabled: true
 
@@ -15,7 +17,6 @@ Naming/FileName:
   - 'Gemfile'
 
 AllCops:
-  TargetRubyVersion: 2.3
   Include:
     - '**/Rakefile'
     - '**/config.ru'
