@@ -24,6 +24,10 @@ jobs: # a collection of steps
           name: Which bundler?
           command: bundle -v
 
+      - run:
+          name: Update bundler
+          command: bundle update --bundler
+
       # Restore bundle cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
