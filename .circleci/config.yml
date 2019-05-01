@@ -24,9 +24,6 @@ jobs: # a collection of steps
           name: Install bundler
           command: gem install bundler
       - run:
-          name: Update bundler
-          command: bundle update --bundler
-      - run:
           name: Which bundler?
           command: bundle -v
 
