@@ -16,7 +16,8 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show sponsor having an image' do
-    sponsor_image = SponsorImage.create!(sponsor_id: @sponsor.id, file: fixture_file_upload('files/logo.png', 'image/png'))
+    sponsor_image = SponsorImage.create!(sponsor_id: @sponsor.id,
+                                         file: fixture_file_upload('files/logo.png', 'image/png'))
     get sponsor_url(@sponsor), env: public_auth_header
     assert_response :success
     assert_equal JSON.parse(response.body)['sponsor_image_id'], sponsor_image.id

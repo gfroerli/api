@@ -3,16 +3,16 @@ class ApplicationController < ActionController::API
 
   before_action :authorize!
 
-  protected
+  private
 
   def authorize!
     return if controller_name == 'home' && action_name == 'index'
 
-    if %w[measurements sensors sponsors sponsor_images].include?(controller_name) && %w[index show aggregated].include?(action_name)
-      return require_public_access!
+    if publicly_accessible_controller_actions[controller_name]&.include?(action_name)
+      require_public_access!
+    else
+      require_private_access!
     end
-
-    require_private_access!
   end
 
   def require_private_access!
@@ -30,5 +30,14 @@ class ApplicationController < ActionController::API
   def request_http_token_authentication(realm = 'Application', _message = nil)
     headers['WWW-Authenticate'] = %(Token realm="#{realm.delete('"')}")
     render json: { error: 'HTTP Token: Access denied.' }, status: :unauthorized
+  end
+
+  def publicly_accessible_controller_actions
+    {
+      'measurements' => %w[index show aggregated],
+      'sensors' => %w[index show],
+      'sponsors' => %w[index show],
+      'sponsor_images' => %w[show]
+    }
   end
 end

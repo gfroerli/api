@@ -11,7 +11,9 @@ class SponsorImagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create sponsor_image' do
     assert_difference('SponsorImage.count') do
-      post sponsor_images_url, params: { sponsor_image: { file: image_file, sponsor_id: @sponsor_image.sponsor_id } }, env: private_auth_header
+      post sponsor_images_url,
+           params: { sponsor_image: { file: image_file, sponsor_id: @sponsor_image.sponsor_id } },
+           env: private_auth_header
     end
 
     assert_response 201
@@ -27,7 +29,9 @@ class SponsorImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update sponsor_image' do
-    patch sponsor_image_url(@sponsor_image), params: { sponsor_image: { file: image_file, sponsor_id: @sponsor_image.sponsor_id } }, env: private_auth_header
+    patch sponsor_image_url(@sponsor_image),
+          params: { sponsor_image: { file: image_file, sponsor_id: @sponsor_image.sponsor_id } },
+          env: private_auth_header
     assert_response 200
   end
 
