@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129204835) do
+ActiveRecord::Schema.define(version: 2018_06_18_203010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,20 +21,21 @@ ActiveRecord::Schema.define(version: 20180129204835) do
     t.string "contact_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "caption"
   end
 
   create_table "measurements", id: :serial, force: :cascade do |t|
-    t.decimal "temperature"
+    t.decimal "temperature", null: false
     t.json "custom_attributes"
-    t.integer "sensor_id"
+    t.integer "sensor_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["sensor_id"], name: "index_measurements_on_sensor_id"
   end
 
   create_table "sensors", id: :serial, force: :cascade do |t|
-    t.string "device_name"
-    t.string "caption"
+    t.string "device_name", null: false
+    t.string "caption", null: false
     t.integer "sponsor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,9 +54,9 @@ ActiveRecord::Schema.define(version: 20180129204835) do
   end
 
   create_table "sponsors", id: :serial, force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.boolean "active"
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

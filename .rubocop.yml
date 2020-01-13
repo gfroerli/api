@@ -1,3 +1,5 @@
+require: rubocop-performance
+
 Rails:
     Enabled: true
 
@@ -11,10 +13,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 AllCops:
-  TargetRubyVersion: 2.3
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
   Exclude:
     - 'bin/**/*'
     - 'script/**/*'
