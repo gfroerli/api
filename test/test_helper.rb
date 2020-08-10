@@ -6,7 +6,7 @@ SimpleCov.start 'rails'
 
 require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 
 module ActiveSupport
   class TestCase
