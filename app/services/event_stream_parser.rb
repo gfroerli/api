@@ -20,6 +20,7 @@ class EventStreamParser
   def parse_event(buffer)
     match = event_format_regex.match(buffer)
     return nil unless match
+
     OpenStruct.new JSON.parse(match[1])
   end
 
