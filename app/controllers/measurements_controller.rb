@@ -4,7 +4,6 @@ class MeasurementsController < ApplicationController
 
   # GET /measurements
   # GET /measurements.json
-  # rubocop:disable Metrics/AbcSize
   def index
     @measurements = Measurement.all
     filter_by_ids params[:sensor_id]
@@ -12,7 +11,6 @@ class MeasurementsController < ApplicationController
     limit_count_per_sensor params[:last_per_sensor]
     limit_count params[:last]
   end
-  # rubocop:enable Metrics/AbcSize
 
   def aggregated
     index
