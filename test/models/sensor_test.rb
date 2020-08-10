@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SensorTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'it can instantiate' do
+    create(:sensor)
+  end
 end

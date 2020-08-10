@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SponsorTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'it can instantiate' do
+    create(:sponsor)
+  end
 end

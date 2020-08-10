@@ -2,8 +2,8 @@ class SponsorImage < ApplicationRecord
   belongs_to :sponsor
 
   # Done like this: http://ryan.endacott.me/2014/06/10/rails-file-upload.html
-  def initialize(params = {})
-    file = params.delete(:file)
+  def initialize(params)
+    file = params&.delete(:file)
     super
 
     return unless file

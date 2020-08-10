@@ -42,4 +42,24 @@ class SponsorImagesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  class FlawedSponsorImagesControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @sponsor_image = create(:sponsor_image, sponsor: create(:sponsor))
+      SponsorImage.any_instance.stubs(:save).returns(false)
+    end
+
+    test 'should NOT create sponsor image' do
+      assert_no_difference('SponsorImage.count') do
+        post sponsor_images_url, params: { sponsor_image: { sponsor_id: 'gach' } }, env: private_auth_header
+      end
+
+      assert_response 422
+    end
+
+    test 'should NOT update sponsor image' do
+      patch sponsor_image_url(@sponsor_image), params: { sponsor_image: { sponsor_id: 'gach' } }, env: private_auth_header
+      assert_response 422
+    end
+  end
 end
