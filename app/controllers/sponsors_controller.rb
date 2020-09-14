@@ -4,7 +4,7 @@ class SponsorsController < ApplicationController
   # GET /sponsors
   # GET /sponsors.json
   def index
-    @sponsors = Sponsor.all
+    @sponsors = Sponsor.all.order(id: :asc)
   end
 
   # GET /sponsors/1
