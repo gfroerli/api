@@ -27,6 +27,8 @@ class ApplicationController < ActionController::API
     end
   end
 
+  # We respond with JSON instead of plaintext like Rails would per default
+  # to signal that authentication is required
   def request_http_token_authentication(realm = 'Application', _message = nil)
     headers['WWW-Authenticate'] = %(Token realm="#{realm.delete('"')}")
     render json: { error: 'HTTP Token: Access denied.' }, status: :unauthorized
