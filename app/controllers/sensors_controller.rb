@@ -4,7 +4,7 @@ class SensorsController < ApplicationController
   # GET /sensors
   # GET /sensors.json
   def index
-    @sensors = Sensor.all
+    @sensors = Sensor.all.order(created_at: :asc)
   end
 
   # GET /sensors/1

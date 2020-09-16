@@ -113,8 +113,8 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
       get measurements_url, params: { created_before: 1.day.ago }, env: public_auth_header
       assert_equal(2, measurements.count)
-      assert_equal(m1.id, measurements.first['id'])
-      assert_equal(m2.id, measurements.second['id'])
+      assert_equal(m2.id, measurements.first['id'])
+      assert_equal(m1.id, measurements.second['id'])
 
       get measurements_url, params: { created_after: 1.day.ago }, env: public_auth_header
       assert_equal(0, measurements.count)

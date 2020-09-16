@@ -5,7 +5,7 @@ class MeasurementsController < ApplicationController
   # GET /measurements
   # GET /measurements.json
   def index
-    @measurements = Measurement.all
+    @measurements = Measurement.all.order(created_at: :asc)
     filter_by_ids params[:sensor_id]
     filter_by_created_at params[:created_after], params[:created_before]
     limit_count_per_sensor params[:last_per_sensor]
@@ -14,7 +14,7 @@ class MeasurementsController < ApplicationController
 
   def aggregated
     index
-    @measurements = @measurements.group('DATE(created_at)')
+    @measurements = @measurements.group('DATE(created_at)').reorder('DATE(created_at)')
     @minimum_temperature = @measurements.minimum(:temperature)
     @maximum_temperature = @measurements.maximum(:temperature)
     @average_temperature = @measurements.average(:temperature)
