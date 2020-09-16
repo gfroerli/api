@@ -5,7 +5,7 @@ class MeasurementsController < ApplicationController
   # GET /measurements
   # GET /measurements.json
   def index
-    @measurements = Measurement.all.order(id: :asc)
+    @measurements = Measurement.all.order(created_at: :asc)
     filter_by_ids params[:sensor_id]
     filter_by_created_at params[:created_after], params[:created_before]
     limit_count_per_sensor params[:last_per_sensor]
