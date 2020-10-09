@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   def authorize!
     return if controller_name == 'home' && action_name == 'index'
 
-    if %w[measurements sensors sponsors].include?(controller_name) && %w[index show aggregated].include?(action_name)
+    if %w[measurements sensors sponsors].include?(controller_name) && %w[index show aggregated aggregated_temperatures].include?(action_name)
       return require_public_access!
     end
 
