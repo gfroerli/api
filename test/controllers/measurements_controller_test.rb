@@ -161,9 +161,9 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       assert_equal(3, aggregated_numbers['maximum_temperature'].count)
       assert_equal(3, aggregated_numbers['average_temperature'].count)
 
-      assert_equal('2.0', aggregated_numbers['minimum_temperature'][2.days.ago.to_date.iso8601])
-      assert_equal('3.0', aggregated_numbers['maximum_temperature'][2.days.ago.to_date.iso8601])
-      assert_equal('2.5', aggregated_numbers['average_temperature'][2.days.ago.to_date.iso8601])
+      assert_equal(2.0, aggregated_numbers['minimum_temperature'][2.days.ago.to_date.iso8601])
+      assert_equal(3.0, aggregated_numbers['maximum_temperature'][2.days.ago.to_date.iso8601])
+      assert_equal(2.5, aggregated_numbers['average_temperature'][2.days.ago.to_date.iso8601])
     end
   end
 end
