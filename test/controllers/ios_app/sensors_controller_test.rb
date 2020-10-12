@@ -53,5 +53,22 @@ module IosApp
       assert_equal(parsed_response.second['maximum_temperature'], 10)
       assert_equal(parsed_response.second['average_temperature'], 7.5)
     end
+
+    test 'should show active sponsor of a sensor' do
+      create(:sponsor, active: true, sensors: [@sensor])
+
+      get sponsor_ios_app_sensor_url(@sensor), env: public_auth_header
+
+      assert_response :success
+      assert_equal(parsed_response['id'], @sensor.sponsor.id)
+    end
+
+    test 'should NOT show inactive sponsor of a sensor' do
+      create(:sponsor, active: false, sensors: [@sensor])
+
+      get sponsor_ios_app_sensor_url(@sensor), env: public_auth_header
+
+      assert_response :not_found
+    end
   end
 end

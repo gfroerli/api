@@ -3,12 +3,14 @@ class ApplicationController < ActionController::API
 
   before_action :authorize!
 
-  protected
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
+
+  private
 
   def authorize!
     return if controller_name == 'home' && action_name == 'index'
 
-    if %w[measurements sensors sponsors].include?(controller_name) && %w[index show aggregated aggregated_temperatures].include?(action_name)
+    if %w[measurements sensors sponsors].include?(controller_name) && %w[index show aggregated aggregated_temperatures sponsor].include?(action_name)
       return require_public_access!
     end
 
@@ -32,5 +34,9 @@ class ApplicationController < ActionController::API
   def request_http_token_authentication(realm = 'Application', _message = nil)
     headers['WWW-Authenticate'] = %(Token realm="#{realm.delete('"')}")
     render json: { error: 'HTTP Token: Access denied.' }, status: :unauthorized
+  end
+
+  def handle_not_found(e)
+    render json: { error: e.to_s }, status: :not_found
   end
 end

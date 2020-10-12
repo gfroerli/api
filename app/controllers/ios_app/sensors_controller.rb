@@ -22,5 +22,9 @@ module IosApp
                         .select('MAX(measurements.temperature) AS maximum_temperature')
                         .select('AVG(measurements.temperature) AS average_temperature')
     end
+
+    def sponsor
+      @sponsor = Sponsor.joins(:sensors).find_by!(sensors: { id: params[:id] }, active: true)
+    end
   end
 end
