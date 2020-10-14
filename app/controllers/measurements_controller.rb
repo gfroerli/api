@@ -17,7 +17,7 @@ class MeasurementsController < ApplicationController
     @measurements = @measurements.group('DATE(created_at)').reorder('DATE(created_at)')
     @minimum_temperature = @measurements.minimum(:temperature)
     @maximum_temperature = @measurements.maximum(:temperature)
-    @average_temperature = @measurements.average(:temperature)
+    @average_temperature = @measurements.average(:temperature).transform_values(&:to_f)
   end
 
   # GET /measurements/1
