@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :sensors
     resources :sponsors
 
-    namespace :ios_app do
+    namespace :mobile_app do
       resources :sensors, only: [:index, :show] do
         member do
           get :aggregated_temperatures

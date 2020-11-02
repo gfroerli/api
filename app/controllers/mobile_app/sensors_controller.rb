@@ -1,4 +1,4 @@
-module IosApp
+module MobileApp
   class SensorsController < ApplicationController
     def index
       @sensors = Sensor.order(created_at: :asc)

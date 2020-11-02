@@ -4,7 +4,7 @@ def parsed_response
   JSON.parse(response.body)
 end
 
-module IosApp
+module MobileApp
   class SensorsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @sensor = create(:sensor)
@@ -13,7 +13,7 @@ module IosApp
     test 'should get index with latest measurement' do
       @sensor.measurements << create(:measurement, temperature: 20)
 
-      get ios_app_sensors_url, env: public_auth_header
+      get mobile_app_sensors_url, env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response.first['latest_temperature'], 20)
@@ -24,7 +24,7 @@ module IosApp
       @sensor.measurements << create(:measurement, temperature: 10)
       @sensor.measurements << create(:measurement, temperature: 20)
 
-      get ios_app_sensor_url(@sensor), env: public_auth_header
+      get mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response['minimum_temperature'], 3)
@@ -38,7 +38,7 @@ module IosApp
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 20)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 30)
 
-      get aggregated_temperatures_ios_app_sensor_url(@sensor), env: public_auth_header
+      get aggregated_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response.length, 2)
@@ -57,7 +57,7 @@ module IosApp
     test 'should show active sponsor of a sensor' do
       create(:sponsor, active: true, sensors: [@sensor])
 
-      get sponsor_ios_app_sensor_url(@sensor), env: public_auth_header
+      get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response['id'], @sensor.sponsor.id)
@@ -66,7 +66,7 @@ module IosApp
     test 'should NOT show inactive sponsor of a sensor' do
       create(:sponsor, active: false, sensors: [@sensor])
 
-      get sponsor_ios_app_sensor_url(@sensor), env: public_auth_header
+      get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :not_found
     end
