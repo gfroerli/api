@@ -79,6 +79,18 @@ module MobileApp
       assert_equal('2020-09-10', parsed_response.first['aggregation_date'])
     end
 
+    test 'should filter aggregated temperatures by limit' do
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-01'), temperature: 5)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-02'), temperature: 10)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-03'), temperature: 20)
+
+      limit_filter = { limit: '2' }
+      get aggregated_temperatures_mobile_app_sensor_url(@sensor, limit_filter), env: public_auth_header
+      assert_equal(2, parsed_response.length)
+      assert_equal('2020-09-03', parsed_response.first['aggregation_date'])
+      assert_equal('2020-09-02', parsed_response.second['aggregation_date'])
+    end
+
     test 'should show active sponsor of a sensor' do
       create(:sponsor, active: true, sensors: [@sensor])
 

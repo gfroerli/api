@@ -24,6 +24,7 @@ module MobileApp
                         .select('MAX(measurements.temperature) AS maximum_temperature')
                         .select('AVG(measurements.temperature) AS average_temperature')
                         .where(created_at: created_from_param..created_to_param)
+                        .limit(limit_param)
     end
 
     def sponsor
@@ -38,6 +39,11 @@ module MobileApp
 
     def created_to_param
       Time.zone.parse(params[:to].to_s)&.end_of_day || Time.zone.now
+    end
+
+    def limit_param
+      limit = params[:limit].to_i
+      limit.positive? ? limit : 10
     end
   end
 end
