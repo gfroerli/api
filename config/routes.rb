@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     namespace :mobile_app do
       resources :sensors, only: [:index, :show] do
         member do
-          get :aggregated_temperatures
+          get :daily_temperatures
           get :sponsor
         end
       end

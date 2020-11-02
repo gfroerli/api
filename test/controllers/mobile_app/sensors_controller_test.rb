@@ -38,7 +38,7 @@ module MobileApp
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 20)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 30)
 
-      get aggregated_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
+      get daily_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response.length, 2)
@@ -62,19 +62,19 @@ module MobileApp
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-11'), temperature: 30)
 
       open_start_filter = { to: '2020-09-10' }
-      get aggregated_temperatures_mobile_app_sensor_url(@sensor, open_start_filter), env: public_auth_header
+      get daily_temperatures_mobile_app_sensor_url(@sensor, open_start_filter), env: public_auth_header
       assert_equal(2, parsed_response.length)
       assert_equal('2020-09-10', parsed_response.first['aggregation_date'])
       assert_equal('2020-09-09', parsed_response.second['aggregation_date'])
 
       open_end_filter = { from: '2020-09-10' }
-      get aggregated_temperatures_mobile_app_sensor_url(@sensor, open_end_filter), env: public_auth_header
+      get daily_temperatures_mobile_app_sensor_url(@sensor, open_end_filter), env: public_auth_header
       assert_equal(2, parsed_response.length)
       assert_equal('2020-09-11', parsed_response.first['aggregation_date'])
       assert_equal('2020-09-10', parsed_response.second['aggregation_date'])
 
       both_ends_filter = { to: '2020-09-10', from: '2020-09-10' }
-      get aggregated_temperatures_mobile_app_sensor_url(@sensor, both_ends_filter), env: public_auth_header
+      get daily_temperatures_mobile_app_sensor_url(@sensor, both_ends_filter), env: public_auth_header
       assert_equal(1, parsed_response.length)
       assert_equal('2020-09-10', parsed_response.first['aggregation_date'])
     end
@@ -85,7 +85,7 @@ module MobileApp
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-03'), temperature: 20)
 
       limit_filter = { limit: '2' }
-      get aggregated_temperatures_mobile_app_sensor_url(@sensor, limit_filter), env: public_auth_header
+      get daily_temperatures_mobile_app_sensor_url(@sensor, limit_filter), env: public_auth_header
       assert_equal(2, parsed_response.length)
       assert_equal('2020-09-03', parsed_response.first['aggregation_date'])
       assert_equal('2020-09-02', parsed_response.second['aggregation_date'])

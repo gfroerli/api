@@ -15,7 +15,7 @@ module MobileApp
       @latest_sensor_temperature = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first&.temperature
     end
 
-    def aggregated_temperatures
+    def daily_temperatures
       @aggregations = Measurement.where(sensor_id: params[:id])
                         .group('DATE(created_at)')
                         .order('DATE(created_at) DESC')
@@ -23,8 +23,7 @@ module MobileApp
                         .select('MIN(measurements.temperature) AS minimum_temperature')
                         .select('MAX(measurements.temperature) AS maximum_temperature')
                         .select('AVG(measurements.temperature) AS average_temperature')
-                        .where(created_at: created_from_param..created_to_param)
-                        .limit(limit_param)
+      @aggregations = filtered_by_params(@aggregations)
     end
 
     def sponsor
@@ -32,6 +31,10 @@ module MobileApp
     end
 
     private
+
+    def filtered_by_params(measurements)
+      measurements.where(created_at: created_from_param..created_to_param).limit(limit_param)
+    end
 
     def created_from_param
       Time.zone.parse(params[:from].to_s)&.beginning_of_day || DateTime.new(1989, 4, 7)
