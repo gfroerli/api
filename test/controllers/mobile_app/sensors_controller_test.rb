@@ -32,7 +32,7 @@ module MobileApp
       assert_equal(parsed_response['average_temperature'], 11)
     end
 
-    test 'should show aggregated temperatures' do
+    test 'should show daily aggregated temperatures' do
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 5)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 10)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 20)
@@ -52,6 +52,37 @@ module MobileApp
       assert_equal(parsed_response.second['minimum_temperature'], 5)
       assert_equal(parsed_response.second['maximum_temperature'], 10)
       assert_equal(parsed_response.second['average_temperature'], 7.5)
+    end
+
+    test 'should show hourly aggregated temperatures' do
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:01'), temperature: 5)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:05'), temperature: 10)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:03'), temperature: 20)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:59'), temperature: 28)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10 00:03'), temperature: 30)
+
+      get hourly_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
+
+      assert_response :success
+      assert_equal(3, parsed_response.length)
+
+      assert_equal(parsed_response.first['aggregation_date'], '2020-09-10')
+      assert_equal(parsed_response.first['aggregation_hour'], 0)
+      assert_equal(parsed_response.first['minimum_temperature'], 30)
+      assert_equal(parsed_response.first['maximum_temperature'], 30)
+      assert_equal(parsed_response.first['average_temperature'], 30)
+
+      assert_equal(parsed_response.second['aggregation_date'], '2020-09-09')
+      assert_equal(parsed_response.second['aggregation_hour'], 3)
+      assert_equal(parsed_response.second['minimum_temperature'], 20)
+      assert_equal(parsed_response.second['maximum_temperature'], 28)
+      assert_equal(parsed_response.second['average_temperature'], 24)
+
+      assert_equal(parsed_response.third['aggregation_date'], '2020-09-09')
+      assert_equal(parsed_response.third['aggregation_hour'], 0)
+      assert_equal(parsed_response.third['minimum_temperature'], 5)
+      assert_equal(parsed_response.third['maximum_temperature'], 10)
+      assert_equal(parsed_response.third['average_temperature'], 7.5)
     end
 
     test 'should filter aggregated temperatures by date' do

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :sensors, only: [:index, :show] do
         member do
           get :daily_temperatures
+          get :hourly_temperatures
           get :sponsor
         end
       end
