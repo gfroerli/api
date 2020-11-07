@@ -37,7 +37,7 @@ class ApplicationController < ActionController::API
     render json: { error: 'HTTP Token: Access denied.' }, status: :unauthorized
   end
 
-  def handle_not_found(e)
-    render json: { error: e.to_s }, status: :not_found
+  def handle_not_found(exception)
+    render json: { error: exception.to_s }, status: :not_found
   end
 end
