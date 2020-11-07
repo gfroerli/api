@@ -6,9 +6,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'pg'
-gem 'rails'
 gem 'puma'
 gem 'rack-cors', require: 'rack/cors'
+gem 'rails'
 
 group :development do
   gem 'listen', '~> 3.2'
