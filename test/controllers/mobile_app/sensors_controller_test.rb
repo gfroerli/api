@@ -140,9 +140,9 @@ module MobileApp
     test 'should NOT show inactive sponsor of a sensor' do
       create(:sponsor, active: false, sensors: [@sensor])
 
-      get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
-
-      assert_response :not_found
+      assert_raises(ActiveRecord::RecordNotFound) do
+        get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
+      end
     end
   end
 end
