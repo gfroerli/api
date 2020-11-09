@@ -59,12 +59,18 @@ module MobileApp
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:05'), temperature: 10)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:03'), temperature: 20)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:59'), temperature: 28)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10 00:03'), temperature: 30)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10 00:59'), temperature: 30)
 
       get hourly_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
       assert_equal(3, parsed_response.length)
+
+      assert(parsed_response.first['aggregation_date'].is_a?(String))
+      assert(parsed_response.first['aggregation_hour'].is_a?(Integer))
+      assert(parsed_response.first['minimum_temperature'].is_a?(Float))
+      assert(parsed_response.first['maximum_temperature'].is_a?(Float))
+      assert(parsed_response.first['average_temperature'].is_a?(Float))
 
       assert_equal(parsed_response.first['aggregation_date'], '2020-09-10')
       assert_equal(parsed_response.first['aggregation_hour'], 0)
@@ -134,9 +140,9 @@ module MobileApp
     test 'should NOT show inactive sponsor of a sensor' do
       create(:sponsor, active: false, sensors: [@sensor])
 
-      get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
-
-      assert_response :not_found
+      assert_raises(ActiveRecord::RecordNotFound) do
+        get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
+      end
     end
   end
 end

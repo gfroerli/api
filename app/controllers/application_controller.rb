@@ -3,8 +3,6 @@ class ApplicationController < ActionController::API
 
   before_action :authorize!
 
-  rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
-
   private
 
   def authorize!
@@ -35,9 +33,5 @@ class ApplicationController < ActionController::API
   def request_http_token_authentication(realm = 'Application', _message = nil)
     headers['WWW-Authenticate'] = %(Token realm="#{realm.delete('"')}")
     render json: { error: 'HTTP Token: Access denied.' }, status: :unauthorized
-  end
-
-  def handle_not_found(e)
-    render json: { error: e.to_s }, status: :not_found
   end
 end

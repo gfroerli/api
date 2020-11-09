@@ -33,7 +33,7 @@ module MobileApp
                         .select('DATE(created_at) AS aggregation_date')
                         .group("EXTRACT(HOUR FROM created_at)")
                         .order("EXTRACT(HOUR FROM created_at) DESC")
-                        .select("EXTRACT(HOUR FROM created_at) AS aggregation_hour")
+                        .select("EXTRACT(HOUR FROM created_at)::integer AS aggregation_hour")
                         .select('MIN(measurements.temperature) AS minimum_temperature')
                         .select('MAX(measurements.temperature) AS maximum_temperature')
                         .select('AVG(measurements.temperature) AS average_temperature')
