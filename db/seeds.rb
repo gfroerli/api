@@ -39,6 +39,7 @@ seeds = [
 seeds.each_with_index do |seed, i|
   sponsor = Sponsor.create! name: seed[:name],
                             description: seed[:description],
+                            logo_source: 'hsr.svg',
                             active: true
 
   sensor = Sensor.create! device_name: "photon_device_#{i}",
