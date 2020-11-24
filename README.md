@@ -1,33 +1,29 @@
 # Coredump Water Sensor API
 
 This project provides an API for querying sensor data of our LoRaWAN based
-water temperature sensors.  Checkout https://gfrör.li for an application using
+water temperature sensors. Check out https://gfrör.li for an application using
 the API.
 
-## Requirements
-
-* Ruby 2.5
-* Rails 5
-
-## Installation
-
-    bin/setup
-
-## Run
-
-    bin/run
-
-## Tests
-
-    bin/check
 
 ## API Endpoints
 
-Base path is `/api/`.
+### CRUD Endpoints
 
-- `/sensors` (full CRUD)
-- `/measurements` (full CRUD)
-- `/sponsors` (full CRUD)
+The following endpoints are RESTful and allow full CRUD operations.
+
+- `/api/sensors`
+- `/api/measurements`
+- `/api/sponsors`
+
+### Application Endpoints
+
+The following endpoints are optimized for mobile applications and return
+read-only aggregated data.
+
+- `/api/mobile_app/sensors`
+- `/api/mobile_app/sensors/<sensor-id>/sponsor`
+- `/api/mobile_app/sensors/<sensor-id>/daily_temperatures`
+- `/api/mobile_app/sensors/<sensor-id>/hourly_temperatures`
 
 ### Authentication
 
@@ -42,7 +38,27 @@ You can post a measurement to the api the following way (use the private api key
 
     curl -X POST 'http://localhost:3000/api/measurements' -H "Content-Type: application/json" -H "Authorization: Bearer 0123456789ABCDEF" -d '{"sensor_id": 1, "temperature": 20.7, "custom_attributes": {"foo": "bar"}}' 
 
-## Docker
+
+## Development
+
+### Requirements
+
+* Ruby 2.5
+* Rails 5
+
+### Installation
+
+    bin/setup
+
+### Run
+
+    bin/run
+
+### Tests
+
+    bin/check
+
+### Docker
 
 You can run the entire setup with docker compose:
 
@@ -56,7 +72,7 @@ machine which has a different IP:
 
     docker-machine ip default
 
-## ArchLinux
+### ArchLinux
 
 (Note: If you don't want to manually set up the entire dev environment, use the
 Docker instructions above!)
@@ -74,16 +90,15 @@ To activate rbenv you need to add
 
 To your shell init file (`.bashrc`/`.zshrc`).
 
-### Prepare the ruby environment
+#### Prepare the ruby environment
 
     git clone git@github.com:gfroerli/gfroerli-api.git
     cd gfroerli-api
     rbenv install
     gem install bundler
 
-### Prepare the database
+#### Prepare the database
 
     pacman -S postgresql
     sudo su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
     createuser -U postgres --createdb $USERNAME
-
