@@ -129,12 +129,13 @@ module MobileApp
     end
 
     test 'should show active sponsor of a sensor' do
-      create(:sponsor, active: true, sensors: [@sensor])
+      create(:sponsor, active: true, logo_source: 'hsr.svg', sensors: [@sensor])
 
       get sponsor_mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response['id'], @sensor.sponsor.id)
+      assert_includes(parsed_response['logo_url'], @sensor.sponsor.logo_source)
     end
 
     test 'should NOT show inactive sponsor of a sensor' do
