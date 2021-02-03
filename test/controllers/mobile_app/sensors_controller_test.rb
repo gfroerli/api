@@ -11,22 +11,24 @@ module MobileApp
     end
 
     test 'should get index with latest measurement' do
-      @sensor.measurements << create(:measurement, temperature: 20)
+      @sensor.measurements << create(:measurement, temperature: 20, created_at: DateTime.parse('2020-08-08'))
 
       get mobile_app_sensors_url, env: public_auth_header
 
       assert_response :success
       assert_equal(parsed_response.first['latest_temperature'], 20)
+      assert_equal(parsed_response.first['latest_sensor_update'], DateTime.parse('2020-08-08').to_time.to_i)
     end
 
     test 'should show sensor with minimum, maximum and average temperature' do
-      @sensor.measurements << create(:measurement, temperature: 3)
-      @sensor.measurements << create(:measurement, temperature: 10)
-      @sensor.measurements << create(:measurement, temperature: 20)
+      @sensor.measurements << create(:measurement, temperature: 3, created_at: DateTime.parse('2020-08-08 08:00:00'))
+      @sensor.measurements << create(:measurement, temperature: 10, created_at: DateTime.parse('2020-08-08 08:00:02')) # Latest
+      @sensor.measurements << create(:measurement, temperature: 20, created_at: DateTime.parse('2020-08-08 08:00:01'))
 
       get mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
+      assert_equal(parsed_response['latest_sensor_update'], DateTime.parse('2020-08-08 08:00:02').to_time.to_i)
       assert_equal(parsed_response['minimum_temperature'], 3)
       assert_equal(parsed_response['maximum_temperature'], 20)
       assert_equal(parsed_response['average_temperature'], 11)
