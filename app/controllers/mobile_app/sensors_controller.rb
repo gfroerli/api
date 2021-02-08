@@ -6,7 +6,7 @@ module MobileApp
     end
 
     def show
-      @sensor = Sensor.joins(:measurements).group(:id)
+      @sensor = Sensor.left_joins(:measurements).group(:id)
                       .select(Sensor.attribute_names)
                       .select('MIN(measurements.temperature) AS minimum_temperature')
                       .select('MAX(measurements.temperature) AS maximum_temperature')
