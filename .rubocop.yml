@@ -4,6 +4,14 @@ require:
 Layout/LineLength:
     Max: 120
 
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+
 Style/Documentation:
   Enabled: false
 
