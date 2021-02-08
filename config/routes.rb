@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   root 'home#index'
 
+  namespace :admin do
+    resources :api_consumers
+    resources :measurements
+    resources :sensors
+    resources :sponsors
+
+    root to: "sensors#index"
+  end
+
   scope :api, defaults: { format: 'json' } do
     resources :measurements do
       get :aggregated, on: :collection
