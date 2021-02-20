@@ -17,7 +17,7 @@ module MobileApp
 
       assert_response :success
       assert_equal(parsed_response.first['latest_temperature'], 20)
-      assert_equal(parsed_response.first['latest_sensor_update'], DateTime.parse('2020-08-08').to_time.to_i)
+      assert_equal(parsed_response.first['latest_sensor_update'], 1596837600) # 2020-08-08
     end
 
     test 'should show sensor with minimum, maximum and average temperature' do
@@ -28,7 +28,7 @@ module MobileApp
       get mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
-      assert_equal(parsed_response['latest_sensor_update'], DateTime.parse('2020-08-08 08:00:02').to_time.to_i)
+      assert_equal(parsed_response['latest_sensor_update'], 1596866402) # 2020-08-08 08:00:02
       assert_equal(parsed_response['minimum_temperature'], 3)
       assert_equal(parsed_response['maximum_temperature'], 20)
       assert_equal(parsed_response['average_temperature'], 11)
