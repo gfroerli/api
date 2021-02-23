@@ -33,6 +33,16 @@ module MobileApp
       assert_equal(parsed_response['average_temperature'], 11)
     end
 
+    test 'should show sensor detail even if there are no measurements' do
+      get mobile_app_sensor_url(@sensor), env: public_auth_header
+
+      assert_response :success
+      assert_equal(@sensor.id, parsed_response['id'])
+      assert_nil(parsed_response['minimum_temperature'])
+      assert_nil(parsed_response['maximum_temperature'])
+      assert_nil(parsed_response['average_temperature'])
+    end
+
     test 'should show daily aggregated temperatures' do
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 5)
       @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 10)
