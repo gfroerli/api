@@ -10,13 +10,14 @@ module MobileApp
       @sensor = create(:sensor)
     end
 
-    test 'should get index with latest measurement' do
+    test 'should get sensor index with latest measurement' do
       @sensor.measurements << create(:measurement, temperature: 20)
 
       get mobile_app_sensors_url, env: public_auth_header
 
       assert_response :success
-      assert_equal(parsed_response.first['latest_temperature'], 20)
+      assert_equal(20, parsed_response.first['latest_temperature'])
+      assert_equal(@sensor.sponsor.id, parsed_response.first['sponsor_id'])
     end
 
     test 'should show sensor with minimum, maximum and average temperature' do
