@@ -21,8 +21,7 @@ module MobileApp
                       .select('MAX(measurements.temperature) AS maximum_temperature')
                       .select('AVG(measurements.temperature) AS average_temperature')
                       .find(params[:id])
-      @latest_sensor_temperature = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first&.temperature
-      @latest_measurement_at = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first&.created_at
+      @latest_measurement = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first
     end
 
     def daily_temperatures
