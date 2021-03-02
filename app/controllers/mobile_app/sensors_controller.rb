@@ -15,7 +15,7 @@ module MobileApp
     end
 
     def show
-      @sensor = Sensor.joins(:measurements).group(:id)
+      @sensor = Sensor.left_joins(:measurements).group(:id)
                       .select(Sensor.attribute_names)
                       .select('MIN(measurements.temperature) AS minimum_temperature')
                       .select('MAX(measurements.temperature) AS maximum_temperature')
@@ -26,26 +26,24 @@ module MobileApp
 
     def daily_temperatures
       @aggregations = Measurement.where(sensor_id: params[:id])
-                                 .group('DATE(created_at)')
-                                 .order('DATE(created_at) DESC')
                                  .select('DATE(created_at) AS aggregation_date')
                                  .select('MIN(measurements.temperature) AS minimum_temperature')
                                  .select('MAX(measurements.temperature) AS maximum_temperature')
                                  .select('AVG(measurements.temperature) AS average_temperature')
+                                 .group('aggregation_date')
+                                 .order('aggregation_date DESC')
       @aggregations = filtered_by_params(@aggregations)
     end
 
     def hourly_temperatures
       @aggregations = Measurement.where(sensor_id: params[:id])
-                                 .group('DATE(created_at)')
-                                 .order('DATE(created_at) DESC')
                                  .select('DATE(created_at) AS aggregation_date')
-                                 .group('EXTRACT(HOUR FROM created_at)')
-                                 .order('EXTRACT(HOUR FROM created_at) DESC')
                                  .select('EXTRACT(HOUR FROM created_at)::integer AS aggregation_hour')
                                  .select('MIN(measurements.temperature) AS minimum_temperature')
                                  .select('MAX(measurements.temperature) AS maximum_temperature')
                                  .select('AVG(measurements.temperature) AS average_temperature')
+                                 .group('aggregation_date, aggregation_hour')
+                                 .order('aggregation_date DESC, aggregation_hour DESC')
       @aggregations = filtered_by_params(@aggregations)
     end
 

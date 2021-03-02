@@ -10,14 +10,15 @@ module MobileApp
       @sensor = create(:sensor)
     end
 
-    test 'should get index with latest measurement' do
+    test 'should get sensor index with latest measurement' do
       @sensor.measurements << create(:measurement, temperature: 20, created_at: DateTime.parse('2020-08-08'))
 
       get mobile_app_sensors_url, env: public_auth_header
 
       assert_response :success
-      assert_equal(parsed_response.first['latest_temperature'], 20)
-      assert_equal(parsed_response.first['latest_measurement_at'], 1596837600) # 2020-08-08
+      assert_equal(20, parsed_response.first['latest_temperature'])
+      assert_equal(1596837600, parsed_response.first['latest_measurement_at']) # 2020-08-08
+      assert_equal(@sensor.sponsor.id, parsed_response.first['sponsor_id'])
     end
 
     test 'should show sensor with minimum, maximum and average temperature' do
@@ -32,6 +33,16 @@ module MobileApp
       assert_equal(parsed_response['minimum_temperature'], 3)
       assert_equal(parsed_response['maximum_temperature'], 20)
       assert_equal(parsed_response['average_temperature'], 11)
+    end
+
+    test 'should show sensor detail even if there are no measurements' do
+      get mobile_app_sensor_url(@sensor), env: public_auth_header
+
+      assert_response :success
+      assert_equal(@sensor.id, parsed_response['id'])
+      assert_nil(parsed_response['minimum_temperature'])
+      assert_nil(parsed_response['maximum_temperature'])
+      assert_nil(parsed_response['average_temperature'])
     end
 
     test 'should show daily aggregated temperatures' do
