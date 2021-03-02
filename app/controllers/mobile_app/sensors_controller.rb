@@ -7,8 +7,8 @@ module MobileApp
                                                .map { |fields| [
                                                  fields[0],
                                                  {
-                                                   :temperature => fields[1],
-                                                   :created_at => fields[2].to_time.to_i,
+                                                   temperature: fields[1],
+                                                   created_at: fields[2],
                                                  }
                                                ]}
                                                .to_h
