@@ -6,10 +6,7 @@ module MobileApp
                                                .pluck(:sensor_id, :temperature, :created_at)
                                                .map { |fields| [
                                                  fields[0],
-                                                 {
-                                                   temperature: fields[1],
-                                                   created_at: fields[2],
-                                                 }
+                                                 {temperature: fields[1], created_at: fields[2]}
                                                ]}
                                                .to_h
     end
