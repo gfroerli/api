@@ -11,23 +11,25 @@ module MobileApp
     end
 
     test 'should get sensor index with latest measurement' do
-      @sensor.measurements << create(:measurement, temperature: 20)
+      @sensor.measurements << create(:measurement, temperature: 20, created_at: DateTime.parse('2020-08-08').utc)
 
       get mobile_app_sensors_url, env: public_auth_header
 
       assert_response :success
       assert_equal(20, parsed_response.first['latest_temperature'])
+      assert_equal(1596844800, parsed_response.first['latest_measurement_at']) # 2020-08-08
       assert_equal(@sensor.sponsor.id, parsed_response.first['sponsor_id'])
     end
 
     test 'should show sensor with minimum, maximum and average temperature' do
-      @sensor.measurements << create(:measurement, temperature: 3)
-      @sensor.measurements << create(:measurement, temperature: 10)
-      @sensor.measurements << create(:measurement, temperature: 20)
+      @sensor.measurements << create(:measurement, temperature: 3, created_at: DateTime.parse('2020-08-08 08:00:00').utc)
+      @sensor.measurements << create(:measurement, temperature: 10, created_at: DateTime.parse('2020-08-08 08:00:02').utc) # Latest
+      @sensor.measurements << create(:measurement, temperature: 20, created_at: DateTime.parse('2020-08-08 08:00:01').utc)
 
       get mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
+      assert_equal(parsed_response['latest_measurement_at'], 1596873602) # 2020-08-08 08:00:02
       assert_equal(parsed_response['minimum_temperature'], 3)
       assert_equal(parsed_response['maximum_temperature'], 20)
       assert_equal(parsed_response['average_temperature'], 11)
@@ -44,10 +46,10 @@ module MobileApp
     end
 
     test 'should show daily aggregated temperatures' do
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 5)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 10)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 20)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 30)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09').utc, temperature: 5)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09').utc, temperature: 10)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10').utc, temperature: 20)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10').utc, temperature: 30)
 
       get daily_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
 
@@ -66,11 +68,11 @@ module MobileApp
     end
 
     test 'should show hourly aggregated temperatures' do
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:01'), temperature: 5)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:05'), temperature: 10)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:03'), temperature: 20)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:59'), temperature: 28)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10 00:59'), temperature: 30)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:01').utc, temperature: 5)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 00:05').utc, temperature: 10)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:03').utc, temperature: 20)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09 03:59').utc, temperature: 28)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10 00:59').utc, temperature: 30)
 
       get hourly_temperatures_mobile_app_sensor_url(@sensor), env: public_auth_header
 
@@ -103,11 +105,11 @@ module MobileApp
     end
 
     test 'should filter aggregated temperatures by date' do
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 5)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09'), temperature: 10)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 20)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10'), temperature: 30)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-11'), temperature: 30)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09').utc, temperature: 5)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-09').utc, temperature: 10)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10').utc, temperature: 20)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-10').utc, temperature: 30)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-11').utc, temperature: 30)
 
       open_start_filter = { to: '2020-09-10' }
       get daily_temperatures_mobile_app_sensor_url(@sensor, open_start_filter), env: public_auth_header
@@ -128,9 +130,9 @@ module MobileApp
     end
 
     test 'should filter aggregated temperatures by limit' do
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-01'), temperature: 5)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-02'), temperature: 10)
-      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-03'), temperature: 20)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-01').utc, temperature: 5)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-02').utc, temperature: 10)
+      @sensor.measurements << create(:measurement, created_at: DateTime.parse('2020-09-03').utc, temperature: 20)
 
       limit_filter = { limit: '2' }
       get daily_temperatures_mobile_app_sensor_url(@sensor, limit_filter), env: public_auth_header

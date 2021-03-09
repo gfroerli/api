@@ -2,7 +2,13 @@ module MobileApp
   class SensorsController < ApplicationController
     def index
       @sensors = Sensor.order(created_at: :asc)
-      @latest_sensor_temperatures = Measurement.last_per_sensor(1).pluck(:sensor_id, :temperature).to_h
+      @latest_sensor_measurements = Measurement.last_per_sensor(1)
+                                               .pluck(:sensor_id, :temperature, :created_at)
+                                               .map { |fields| [
+                                                 fields[0],
+                                                 {temperature: fields[1], created_at: fields[2]}
+                                               ]}
+                                               .to_h
     end
 
     def show
@@ -12,7 +18,7 @@ module MobileApp
                       .select('MAX(measurements.temperature) AS maximum_temperature')
                       .select('AVG(measurements.temperature) AS average_temperature')
                       .find(params[:id])
-      @latest_sensor_temperature = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first&.temperature
+      @latest_measurement = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first
     end
 
     def daily_temperatures
