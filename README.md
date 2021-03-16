@@ -52,6 +52,7 @@ JSON array element fields:
 | latitude | number? | Latitude (WGS84) |
 | longitude | number? | Longitude (WGS84) |
 | latest_temperature | number? | Latest temperature measurement |
+| latest_measurement_at | number? | Unix timestamp (seconds) |
 
 **Sensor Details**
 
@@ -69,6 +70,7 @@ JSON fields:
 | latitude | number? | Latitude (WGS84) |
 | longitude | number? | Longitude (WGS84) |
 | latest_temperature | number? | Latest temperature measurement |
+| latest_measurement_at | number? | Unix timestamp (seconds) |
 | average_temperature | number? | Average temperature (all-time) |
 | minimum_temperature | number? | Lowest temperature (all-time) |
 | maximum_temperature | number? | Highest temperature (all-time) |
