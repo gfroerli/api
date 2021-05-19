@@ -7,6 +7,7 @@ gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'pg'
 gem 'puma'
+gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails'
 
