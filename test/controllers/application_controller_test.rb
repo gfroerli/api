@@ -24,6 +24,9 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
 
     get test_path, params: {}, env: { 'HTTP_ACCEPT_LANGUAGE' => 'de-CH, en-US, fr' }
     assert_equal 'fr', response.body
+
+    get test_path, params: {}, env: { 'HTTP_ACCEPT_LANGUAGE' => 'gsw' }
+    assert_equal 'gsw', response.body
   end
 
   def teardown

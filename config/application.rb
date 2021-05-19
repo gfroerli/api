@@ -33,7 +33,7 @@ module CoredumpWaterSensorApi
 
     config.time_zone = 'UTC'
 
-    config.i18n.available_locales = [:de, :en, :fr, :it, :rm]
+    config.i18n.available_locales = [:de, :en, :fr, :it, :gsw, :rm]
     config.i18n.default_locale = :en
     config.middleware.use Rack::Locale
   end
