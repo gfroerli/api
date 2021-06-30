@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read('.ruby-version').strip
 
+gem 'administrate'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'jbuilder'
