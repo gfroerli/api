@@ -17,19 +17,19 @@ module MobileApp
 
       assert_response :success
       assert_equal(20, parsed_response.first['latest_temperature'])
-      assert_equal(1596844800, parsed_response.first['latest_measurement_at']) # 2020-08-08
+      assert_equal(1_596_844_800, parsed_response.first['latest_measurement_at']) # 2020-08-08
       assert_equal(@sensor.sponsor.id, parsed_response.first['sponsor_id'])
     end
 
     test 'should show sensor with minimum, maximum and average temperature' do
       @sensor.measurements << create(:measurement, temperature: 3, created_at: Time.zone.parse('2020-08-08 08:00:00'))
-      @sensor.measurements << create(:measurement, temperature: 10, created_at: Time.zone.parse('2020-08-08 08:00:02')) # Latest
+      @sensor.measurements << create(:measurement, temperature: 10, created_at: Time.zone.parse('2020-08-08 08:00:02'))
       @sensor.measurements << create(:measurement, temperature: 20, created_at: Time.zone.parse('2020-08-08 08:00:01'))
 
       get mobile_app_sensor_url(@sensor), env: public_auth_header
 
       assert_response :success
-      assert_equal(parsed_response['latest_measurement_at'], 1596873602) # 2020-08-08 08:00:02
+      assert_equal(parsed_response['latest_measurement_at'], 1_596_873_602) # 2020-08-08 08:00:02
       assert_equal(parsed_response['minimum_temperature'], 3)
       assert_equal(parsed_response['maximum_temperature'], 20)
       assert_equal(parsed_response['average_temperature'], 11)

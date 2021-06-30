@@ -9,7 +9,8 @@ class ApplicationController < ActionController::API
     return if controller_name == 'home' && action_name == 'index'
 
     # TODO: This is cheap, reorganize properly
-    if %w[measurements sensors sponsors].include?(controller_name) && %w[index show aggregated daily_temperatures hourly_temperatures sponsor].include?(action_name)
+    if %w[measurements sensors sponsors].include?(controller_name) &&
+       %w[index show aggregated daily_temperatures hourly_temperatures sponsor].include?(action_name)
       return require_public_access!
     end
 

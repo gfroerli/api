@@ -4,10 +4,12 @@ module MobileApp
       @sensors = Sensor.order(created_at: :asc)
       @latest_sensor_measurements = Measurement.last_per_sensor(1)
                                                .pluck(:sensor_id, :temperature, :created_at)
-                                               .map { |fields| [
-                                                 fields[0],
-                                                 {temperature: fields[1], created_at: fields[2]}
-                                               ]}
+                                               .map do |fields|
+        [
+          fields[0],
+          { temperature: fields[1], created_at: fields[2] }
+        ]
+      end
                                                .to_h
     end
 
@@ -55,7 +57,7 @@ module MobileApp
     end
 
     def created_from_param
-      Time.zone.parse(params[:from].to_s)&.beginning_of_day || Time.at(607910400)
+      Time.zone.parse(params[:from].to_s)&.beginning_of_day || Time.at(607_910_400)
     end
 
     def created_to_param
