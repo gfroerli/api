@@ -150,6 +150,13 @@ Query parameters:
 
     bin/check
 
+### API Consumers
+
+To create an API consumer, run the following query on the database:
+
+    INSERT INTO api_consumers(public_api_key, private_api_key, caption, created_at, updated_at)
+    VALUES('PUBLIC', 'PRIVATE', 'Test API Consumer', NOW(), NOW());
+
 ### Docker
 
 You can run the entire setup with docker compose:
@@ -163,6 +170,10 @@ If you're using *docker-machine* the server is running inside your virtual
 machine which has a different IP:
 
     docker-machine ip default
+
+To connect to the PostgreSQL database:
+
+    docker-compose exec db psql -U api watertemp_api
 
 ### ArchLinux
 
