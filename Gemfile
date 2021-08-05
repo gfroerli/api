@@ -10,7 +10,7 @@ gem 'pg'
 gem 'puma'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails'
+gem 'rails', '< 6.1'
 
 group :development do
   gem 'listen', '~> 3.2'
