@@ -18,7 +18,7 @@ FileUtils.chdir APP_ROOT do
   system('bundle check') || system!('bundle install')
 
   unless File.exist?('.env')
-    cp '.env.sample', '.env'
+    system! 'cp', '.env.sample', '.env'
   end
 
   puts "\n== Preparing database =="
