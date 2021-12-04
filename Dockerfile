@@ -1,8 +1,23 @@
-FROM ruby:2.7.2-alpine3.13
+### Build Image ###
 
-# Env vars
-ENV GEM_HOME=/gems \
-    RAILS_ENV=production
+FROM ruby:2.7.2-alpine3.13 AS builder
+ENV GEM_HOME=/gems RAILS_ENV=production
+
+# Build dependencies
+RUN apk add --no-cache --update \
+    build-base \
+    tzdata \
+    postgresql-dev
+
+# Install gems
+ADD Gemfile* .ruby-version /code/
+RUN cd /code && gem install bundler && bundle install
+
+
+### Runtime Image ###
+
+FROM ruby:2.7.2-alpine3.13
+ENV GEM_HOME=/gems RAILS_ENV=production
 
 # Add user
 RUN addgroup -g 3554 -S rails \
@@ -13,21 +28,17 @@ RUN mkdir /code /gems \
  && chown rails:rails /code /gems
 WORKDIR /code
 
-# Dependencies
+# Runtime dependencies
 RUN apk add --no-cache --update \
     dumb-init \
-    build-base \
     tzdata \
-    postgresql-dev
+    libpq
 
-# Install gems
-ADD Gemfile* .ruby-version /code/
-RUN chown -R rails:rails /code
-USER rails
-RUN gem install bundler && bundle install
+# Copy gems from build container
+COPY --from=builder /gems/ /gems/
+RUN chown -R rails:rails /gems
 
 # Add code
-USER root
 ADD . /code/
 RUN chown -R rails:rails /code
 USER rails
