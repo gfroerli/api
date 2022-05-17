@@ -154,8 +154,8 @@ Query parameters:
 
 To create an API consumer, run the following query on the database:
 
-    INSERT INTO api_consumers(public_api_key, private_api_key, caption, created_at, updated_at)
-    VALUES('PUBLIC', 'PRIVATE', 'Test API Consumer', NOW(), NOW());
+    INSERT INTO api_consumers(public_api_key, private_api_key, caption, contact_email, created_at, updated_at)
+    VALUES('PUBLIC', 'PRIVATE', 'Test API Consumer', 'consumer@example.com', NOW(), NOW());
 
 ### Docker
 
