@@ -4,13 +4,12 @@ module MobileApp
       @sensors = Sensor.order(created_at: :asc)
       @latest_sensor_measurements = Measurement.last_per_sensor(1)
                                                .pluck(:sensor_id, :temperature, :created_at)
-                                               .map do |fields|
+                                               .to_h do |fields|
         [
           fields[0],
           { temperature: fields[1], created_at: fields[2] }
         ]
       end
-                                               .to_h
     end
 
     def show
