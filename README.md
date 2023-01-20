@@ -49,8 +49,8 @@ JSON array element fields:
 | caption | string | Caption describing the sensor |
 | created_at | uint | Unix timestamp (seconds) |
 | sponsor_id | uint? | Associated sponsor ID |
-| latitude | number? | Latitude (WGS84) |
-| longitude | number? | Longitude (WGS84) |
+| latitude | number | Latitude (WGS84) |
+| longitude | number | Longitude (WGS84) |
 | latest_temperature | number? | Latest temperature measurement |
 | latest_measurement_at | number? | Unix timestamp (seconds) |
 
@@ -67,8 +67,8 @@ JSON fields:
 | caption | string | Caption describing the sensor |
 | created_at | uint | Unix timestamp (seconds) |
 | sponsor_id | uint? | Associated sponsor ID |
-| latitude | number? | Latitude (WGS84) |
-| longitude | number? | Longitude (WGS84) |
+| latitude | number | Latitude (WGS84) |
+| longitude | number | Longitude (WGS84) |
 | latest_temperature | number? | Latest temperature measurement |
 | latest_measurement_at | number? | Unix timestamp (seconds) |
 | average_temperature | number? | Average temperature (all-time) |
