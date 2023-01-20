@@ -27,3 +27,10 @@ def private_auth_header
   )
   { authorization: api_key }
 end
+
+def admin_auth_header
+  api_consumer = create(:private_api_consumer)
+  { Authorization: ActionController::HttpAuthentication::Basic.encode_credentials(
+    api_consumer.public_api_key, api_consumer.private_api_key
+  ) }
+end
