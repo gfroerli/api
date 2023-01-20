@@ -1,7 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
-SimpleCov.minimum_coverage 40
+SimpleCov.minimum_coverage 100
 SimpleCov.start 'rails'
 
 require File.expand_path('../config/environment', __dir__)
