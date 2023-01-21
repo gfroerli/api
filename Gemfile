@@ -7,7 +7,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'pg'
-gem 'puma'
+gem 'puma', '~> 5.6'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '< 6.1'
@@ -27,6 +27,6 @@ end
 
 group :test do
   gem 'factory_bot_rails'
-  gem 'mocha'
+  gem 'mocha', '~> 1.16'
   gem 'simplecov', require: false
 end
