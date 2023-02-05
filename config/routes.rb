@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :measurements
     resources :sensors
     resources :sponsors
+    resources :waterbodies
 
     root to: "sensors#index"
   end
