@@ -13,6 +13,7 @@ class WaterbodyDashboard < Administrate::BaseDashboard
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     name: Field::String,
+    sensors: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -24,7 +25,9 @@ class WaterbodyDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
+    name
     description
+    sensors
     latitude
     longitude
   ].freeze
@@ -33,10 +36,11 @@ class WaterbodyDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
+    name
     description
+    sensors
     latitude
     longitude
-    name
     created_at
     updated_at
   ].freeze
@@ -45,10 +49,10 @@ class WaterbodyDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    name
     description
     latitude
     longitude
-    name
   ].freeze
 
   # COLLECTION_FILTERS

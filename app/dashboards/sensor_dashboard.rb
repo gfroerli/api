@@ -10,6 +10,7 @@ class SensorDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     measurements: Field::HasMany,
     sponsor: Field::BelongsTo,
+    waterbody: Field::BelongsTo,
     id: Field::Number,
     device_name: Field::String,
     caption: Field::String,
@@ -27,6 +28,7 @@ class SensorDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     measurements
     sponsor
+    waterbody
     id
     device_name
   ].freeze
@@ -36,6 +38,7 @@ class SensorDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     measurements
     sponsor
+    waterbody
     id
     device_name
     caption
@@ -50,6 +53,7 @@ class SensorDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     sponsor
+    waterbody
     device_name
     caption
     latitude
