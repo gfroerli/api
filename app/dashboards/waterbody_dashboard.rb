@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class WaterbodyDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -15,7 +15,7 @@ class WaterbodyDashboard < Administrate::BaseDashboard
     name: Field::String,
     sensors: Field::HasMany,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
