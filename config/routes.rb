@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
     resources :sensors
     resources :sponsors
+    resources :waterbodies, only: [:index, :show]
 
     namespace :mobile_app do
       resources :sensors, only: [:index, :show] do
