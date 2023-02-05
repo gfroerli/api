@@ -1,0 +1,2 @@
+class Waterbody < ApplicationRecord
+end
