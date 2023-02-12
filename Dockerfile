@@ -43,6 +43,8 @@ ADD . /code/
 RUN chown -R rails:rails /code
 USER rails
 
+RUN bin/rails assets:precompile
+
 # Stop with SIGINT
 STOPSIGNAL int
 
