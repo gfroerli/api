@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :measurements
     resources :sensors
     resources :sponsors
+    resources :waterbodies
 
     root to: "sensors#index"
   end
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
     end
     resources :sensors
     resources :sponsors
+    resources :waterbodies, only: [:index, :show]
 
     namespace :mobile_app do
       resources :sensors, only: [:index, :show] do

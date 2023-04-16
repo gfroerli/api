@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_20_212413) do
+ActiveRecord::Schema.define(version: 2023_02_05_152214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,9 @@ ActiveRecord::Schema.define(version: 2023_01_20_212413) do
     t.datetime "updated_at", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false
+    t.bigint "waterbody_id"
     t.index ["sponsor_id"], name: "index_sensors_on_sponsor_id"
+    t.index ["waterbody_id"], name: "index_sensors_on_waterbody_id"
   end
 
   create_table "sponsors", id: :serial, force: :cascade do |t|
@@ -54,5 +56,15 @@ ActiveRecord::Schema.define(version: 2023_01_20_212413) do
     t.string "logo_source", comment: "filename (in ./public/images/), relative path or URL"
   end
 
+  create_table "waterbodies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "measurements", "sensors"
+  add_foreign_key "sensors", "waterbodies"
 end

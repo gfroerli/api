@@ -1,6 +1,6 @@
 require 'administrate/base_dashboard'
 
-class SensorDashboard < Administrate::BaseDashboard
+class WaterbodyDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,16 +8,14 @@ class SensorDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    measurements: Field::HasMany,
-    sponsor: Field::BelongsTo,
-    waterbody: Field::BelongsTo,
     id: Field::Number,
-    device_name: Field::String,
-    caption: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    description: Field::String,
     latitude: Field::Number.with_options(decimals: 2),
-    longitude: Field::Number.with_options(decimals: 2)
+    longitude: Field::Number.with_options(decimals: 2),
+    name: Field::String,
+    sensors: Field::HasMany,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -26,36 +24,33 @@ class SensorDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    measurements
-    sponsor
-    waterbody
     id
-    device_name
+    name
+    description
+    sensors
+    latitude
+    longitude
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    measurements
-    sponsor
-    waterbody
     id
-    device_name
-    caption
-    created_at
-    updated_at
+    name
+    description
+    sensors
     latitude
     longitude
+    created_at
+    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    sponsor
-    waterbody
-    device_name
-    caption
+    name
+    description
     latitude
     longitude
   ].freeze
@@ -72,10 +67,10 @@ class SensorDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how sensors are displayed
+  # Overwrite this method to customize how waterbodies are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(sensor)
-  #   "Sensor ##{sensor.id}"
+  # def display_resource(waterbody)
+  #   "Waterbody ##{waterbody.id}"
   # end
 end
