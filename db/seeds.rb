@@ -1,3 +1,7 @@
+require 'factory_bot'
+
+FactoryBot.find_definitions
+
 seeds = [
           {
               name: 'Hochschule für Technik Rapperswil',
@@ -36,6 +40,8 @@ seeds = [
           },
       ]
 
+waterbody = FactoryBot.create(:waterbody)
+
 seeds.each_with_index do |seed, i|
   sponsor = Sponsor.create! name: seed[:name],
                             description: seed[:description],
@@ -46,7 +52,8 @@ seeds.each_with_index do |seed, i|
                           caption: "#{seed[:sensor_prefix]}#{i}",
                           latitude: seed[:latitude],
                           longitude: seed[:longitude],
-                          sponsor: sponsor
+                          sponsor: sponsor,
+                          waterbody: waterbody
 
   50.times do
     Measurement.create! temperature: rand(3000)/100, custom_attributes: Hash[sample_reading: '5.645V'], sensor: sensor
