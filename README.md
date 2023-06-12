@@ -135,8 +135,8 @@ Query parameters:
 
 ### Requirements
 
-* Ruby 2.7
-* Rails 6
+* Ruby 3.0
+* Rails 6.1
 
 ### Installation
 
