@@ -7,7 +7,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'pg'
-gem 'puma', '~> 5.6'
+gem 'puma', '~> 6.4'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.1.7'
