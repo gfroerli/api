@@ -12,7 +12,6 @@ require "action_mailer/railtie"
 # require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -28,12 +27,8 @@ module CoredumpWaterSensorApi
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    config.api_only = false
-
-    config.time_zone = 'UTC'
-
-    config.i18n.available_locales = [:de, :en, :fr, :it, :gsw, :rm]
-    config.i18n.default_locale = :en
-    config.middleware.use Rack::Locale
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end
