@@ -13,7 +13,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.1.7'
 
 group :development do
-  gem 'listen', '~> 3.2'
+  gem 'listen', '~> 3.9'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'spring', '~> 4.1'
