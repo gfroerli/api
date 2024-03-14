@@ -10,14 +10,12 @@ gem 'pg'
 gem 'puma', '~> 6.4'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 6.1.7'
+gem 'rails', '~> 7.0.8'
 
 group :development do
   gem 'listen', '~> 3.9'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
-  gem 'spring', '~> 4.1'
-  gem 'spring-watcher-listen', '~> 2.1'
 end
 
 group :development, :test do

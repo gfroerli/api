@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require "fileutils"
+require 'fileutils'
 
 # path to your application root.
 APP_ROOT = File.expand_path('..', __dir__)
@@ -17,9 +17,7 @@ FileUtils.chdir APP_ROOT do
   system! 'gem install bundler --conservative'
   system('bundle check') || system!('bundle install')
 
-  unless File.exist?('.env')
-    system! 'cp', '.env.sample', '.env'
-  end
+  system! 'cp', '.env.sample', '.env' unless File.exist?('.env')
 
   puts "\n== Preparing database =="
   system! 'bin/rails db:prepare'
