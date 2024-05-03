@@ -28,3 +28,4 @@ AllCops:
     - 'tmp/**/*'
     - 'db/**/*'
     - 'config/**/*'
+    - 'vendor/bundle/**/*'

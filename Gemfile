@@ -14,13 +14,13 @@ gem 'rails', '~> 7.0.8'
 
 group :development do
   gem 'listen', '~> 3.9'
-  gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
 end
 
 group :development, :test do
   gem 'byebug'
   gem 'pry-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
 end
 
 group :test do
