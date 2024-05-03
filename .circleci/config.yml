@@ -55,4 +55,4 @@ jobs: # a collection of steps
       - run:
           name: Run minitest
           command: bundle exec rake test
-
+      - run: bundle exec rubocop
