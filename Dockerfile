@@ -43,7 +43,8 @@ ADD . /code/
 RUN chown -R rails:rails /code
 USER rails
 
-RUN bin/rails assets:precompile
+# Precompiling assets for production without requiring secret key
+RUN SECRET_KEY_BASE=dummy bin/rails assets:precompile
 
 # Stop with SIGINT
 STOPSIGNAL int
