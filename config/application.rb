@@ -21,8 +21,7 @@ Bundler.require(*Rails.groups)
 module CoredumpWaterSensorApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
-    config.active_support.cache_format_version = 7.0 # Can be removed when changing load_defaults to 7.0
+    config.load_defaults 7.0
 
     # Configuration for the application, engines, and railties goes here.
     #
