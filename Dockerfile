@@ -1,6 +1,6 @@
 ### Build Image ###
 
-FROM ruby:3.2.6-alpine3.19 AS builder
+FROM ruby:3.2.7-alpine3.20 AS builder
 ENV GEM_HOME=/gems RAILS_ENV=production
 
 # Build dependencies
@@ -16,7 +16,7 @@ RUN cd /code && gem install bundler && bundle install
 
 ### Runtime Image ###
 
-FROM ruby:3.2.6-alpine3.19
+FROM ruby:3.2.7-alpine3.20
 ENV GEM_HOME=/gems RAILS_ENV=production
 
 # Add user
