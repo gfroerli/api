@@ -33,6 +33,7 @@ WORKDIR /code
 RUN apk add --no-cache --update \
     dumb-init \
     tzdata \
+    libstdc++ \
     libpq
 
 # Copy gems from build container
