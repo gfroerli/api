@@ -7,6 +7,7 @@ ENV GEM_HOME=/gems RAILS_ENV=production
 RUN apk add --no-cache --update \
     build-base \
     tzdata \
+    yaml-dev \
     postgresql-dev
 
 # Install gems
@@ -32,6 +33,7 @@ WORKDIR /code
 RUN apk add --no-cache --update \
     dumb-init \
     tzdata \
+    libstdc++ \
     libpq
 
 # Copy gems from build container
