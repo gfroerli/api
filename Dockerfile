@@ -7,6 +7,7 @@ ENV GEM_HOME=/gems RAILS_ENV=production
 RUN apk add --no-cache --update \
     build-base \
     tzdata \
+    yaml-dev \
     postgresql-dev
 
 # Install gems
