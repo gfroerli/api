@@ -24,6 +24,7 @@ services:
       POSTGRES_DB: watertemp_api
 
   api:
+    image: ghcr.io/gfroerli/api:master
     build: .
     restart: always
     ports:
