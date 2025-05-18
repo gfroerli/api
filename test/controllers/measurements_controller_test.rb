@@ -1,7 +1,7 @@
 require 'test_helper'
 
 def measurements
-  JSON.parse(response.body)
+  response.parsed_body
 end
 
 class MeasurementsControllerTest < ActionDispatch::IntegrationTest
@@ -38,7 +38,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(@measurement.sensor, new_measurements.sensor)
     assert_equal(@measurement.temperature, new_measurements.temperature)
 
-    assert_response 201
+    assert_response :created
   end
 
   test 'should update measurement' do
@@ -46,7 +46,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
                                                                   sensor_id: @measurement.sensor.id,
                                                                   temperature: @measurement.temperature } },
                                          env: private_auth_header
-    assert_response 200
+    assert_response :ok
   end
 
   test 'should destroy measurement' do
@@ -54,7 +54,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       delete measurement_url(@measurement), env: private_auth_header
     end
 
-    assert_response 204
+    assert_response :no_content
   end
 
   class FlawedMeasurementsControllerTest < ActionDispatch::IntegrationTest
@@ -68,13 +68,13 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
         post measurements_url, params: { measurement: { blub: 'gach' } }, env: private_auth_header
       end
 
-      assert_response 422
+      assert_response :unprocessable_content
     end
 
     test 'should NOT update measurement' do
       patch measurement_url(@measurement), params: { measurement: { blub: 'gach' } },
                                            env: private_auth_header
-      assert_response 422
+      assert_response :unprocessable_content
     end
   end
 
@@ -147,14 +147,14 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
   class AggregateMeasurementsControllerTest < ActionDispatch::IntegrationTest
     test 'should return average, minimum and maximum' do
-      create :measurement, temperature: 1, created_at: 1.day.ago
-      create :measurement, temperature: 2, created_at: 2.days.ago
-      create :measurement, temperature: 3, created_at: 2.days.ago
-      create :measurement, temperature: 1, created_at: 3.days.ago
-      create :measurement, temperature: 1, created_at: 3.days.ago
+      create(:measurement, temperature: 1, created_at: 1.day.ago)
+      create(:measurement, temperature: 2, created_at: 2.days.ago)
+      create(:measurement, temperature: 3, created_at: 2.days.ago)
+      create(:measurement, temperature: 1, created_at: 3.days.ago)
+      create(:measurement, temperature: 1, created_at: 3.days.ago)
 
       get aggregated_measurements_url, env: public_auth_header
-      aggregated_numbers = JSON.parse(response.body)
+      aggregated_numbers = response.parsed_body
       assert_response :success
 
       assert_equal(3, aggregated_numbers['minimum_temperature'].count)

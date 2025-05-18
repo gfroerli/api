@@ -23,7 +23,7 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
                          env: private_auth_header
     end
 
-    assert_response 201
+    assert_response :created
   end
 
   test 'should update sponsor' do
@@ -31,7 +31,7 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
                                                       description: @sponsor.description,
                                                       name: @sponsor.name } },
                                  env: private_auth_header
-    assert_response 200
+    assert_response :ok
   end
 
   test 'should destroy sponsor' do
@@ -39,7 +39,7 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
       delete sponsor_url(@sponsor), env: private_auth_header
     end
 
-    assert_response 204
+    assert_response :no_content
   end
 
   class FlawedSponsorsControllerTest < ActionDispatch::IntegrationTest
@@ -53,12 +53,12 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
         post sponsors_url, params: { sponsor: { blub: 'gach' } }, env: private_auth_header
       end
 
-      assert_response 422
+      assert_response :unprocessable_content
     end
 
     test 'should NOT update sponsor' do
       patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }, env: private_auth_header
-      assert_response 422
+      assert_response :unprocessable_content
     end
   end
 end

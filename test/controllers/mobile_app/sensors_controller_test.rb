@@ -1,7 +1,7 @@
 require 'test_helper'
 
 def parsed_response
-  JSON.parse(response.body)
+  response.parsed_body
 end
 
 module MobileApp

@@ -1,6 +1,6 @@
 class WaterbodiesController < ApplicationController
   def index
-    @waterbodies = Waterbody.all.order(created_at: :asc)
+    @waterbodies = Waterbody.order(created_at: :asc)
   end
 
   def show

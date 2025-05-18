@@ -1,5 +1,7 @@
 plugins:
   - rubocop-performance
+  - rubocop-factory_bot
+  - rubocop-rails
 
 Layout/LineLength:
     Max: 120
