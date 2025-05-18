@@ -1,7 +1,7 @@
 require 'test_helper'
 
 def measurements
-  JSON.parse(response.body)
+  response.parsed_body
 end
 
 class MeasurementsControllerTest < ActionDispatch::IntegrationTest
@@ -154,7 +154,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       create(:measurement, temperature: 1, created_at: 3.days.ago)
 
       get aggregated_measurements_url, env: public_auth_header
-      aggregated_numbers = JSON.parse(response.body)
+      aggregated_numbers = response.parsed_body
       assert_response :success
 
       assert_equal(3, aggregated_numbers['minimum_temperature'].count)

@@ -56,7 +56,7 @@ module MobileApp
     end
 
     def created_from_param
-      Time.zone.parse(params[:from].to_s)&.beginning_of_day || Time.at(607_910_400)
+      Time.zone.parse(params[:from].to_s)&.beginning_of_day || Time.zone.at(607_910_400)
     end
 
     def created_to_param
