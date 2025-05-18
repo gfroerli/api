@@ -31,7 +31,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
                         env: private_auth_header
     end
 
-    assert_response 201
+    assert_response :created
   end
 
   test 'should update sensor' do
@@ -39,7 +39,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
                                                    latitude: @sensor.latitude, longitude: @sensor.longitude,
                                                    sponsor_id: @sensor.sponsor.id } },
                                env: private_auth_header
-    assert_response 200
+    assert_response :ok
   end
 
   test 'should destroy sensor' do
@@ -47,7 +47,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
       delete sensor_url(@sensor), env: private_auth_header
     end
 
-    assert_response 204
+    assert_response :no_content
   end
 
   class FlawedSensorsControllerTest < ActionDispatch::IntegrationTest
@@ -61,12 +61,12 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
         post sensors_url, params: { sensor: { blub: 'gach' } }, env: private_auth_header
       end
 
-      assert_response 422
+      assert_response :unprocessable_content
     end
 
     test 'should NOT update sensor' do
       patch sensor_url(@sensor), params: { sensor: { blub: 'gach' } }, env: private_auth_header
-      assert_response 422
+      assert_response :unprocessable_content
     end
   end
 end
