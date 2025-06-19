@@ -32,8 +32,6 @@ module CoredumpWaterSensorApi
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    config.api_only = false
-
     config.time_zone = "UTC"
 
     config.i18n.available_locales = [:de, :en, :fr, :it, :gsw, :rm]

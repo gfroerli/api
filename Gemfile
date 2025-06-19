@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby file: '.ruby-version'
 
-gem 'administrate'
+gem 'administrate', '1.0.0.beta3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'jbuilder'
@@ -10,7 +10,7 @@ gem 'pg'
 gem 'puma', '~> 6.6'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 7.2.2'
+gem 'rails', '~> 8.0.2'
 
 group :development do
   gem 'listen', '~> 3.9'
