@@ -27,6 +27,11 @@ class MeasurementsController < ApplicationController
   # POST /measurements
   # POST /measurements.json
   def create
+    unless valid_created_at?
+      return render plain: 'Invalid created_at timestamp. Must be within the last 60 minutes.',
+                    status: :bad_request
+    end
+
     @measurement = Measurement.new(measurement_params)
 
     if @measurement.save
@@ -61,7 +66,18 @@ class MeasurementsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def measurement_params
-    params.require(:measurement).permit(:temperature, :sensor_id, custom_attributes: {})
+    params.require(:measurement).permit(:temperature, :sensor_id, :created_at, custom_attributes: {})
+  end
+
+  def valid_created_at?
+    return true if params.dig(:measurement, :created_at).blank?
+
+    submitted_time = Time.zone.parse(params[:measurement][:created_at])
+    return false if submitted_time.nil?
+
+    sixty_minutes_ago = 60.minutes.ago
+
+    submitted_time.between?(sixty_minutes_ago, 3.minutes.from_now)
   end
 
   def filter_by_ids(ids)
