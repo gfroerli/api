@@ -60,7 +60,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
-                                                      created_at: valid_timestamp.iso8601 } },
+                                                      override_created_at: valid_timestamp.iso8601 } },
                              env: private_auth_header
     end
 
@@ -74,12 +74,12 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
-                                                      created_at: too_old_timestamp.iso8601 } },
+                                                      override_created_at: too_old_timestamp.iso8601 } },
                              env: private_auth_header
     end
 
-    assert_response :bad_request
-    assert_equal 'Invalid created_at timestamp. Must be within the last 60 minutes.', response.body
+    assert_response :unprocessable_content
+    assert_includes response.body, 'Must be within the last 60 minutes.'
   end
 
   test 'should reject measurement with created_at too far in the future' do
@@ -87,12 +87,12 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
-                                                      created_at: too_future_timestamp.iso8601 } },
+                                                      override_created_at: too_future_timestamp.iso8601 } },
                              env: private_auth_header
     end
 
-    assert_response :bad_request
-    assert_equal 'Invalid created_at timestamp. Must be within the last 60 minutes.', response.body
+    assert_response :unprocessable_content
+    assert_includes response.body, 'Must be within the last 60 minutes.'
   end
 
   test 'should accept measurement with created_at slightly in the future' do
@@ -100,7 +100,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
-                                                      created_at: slightly_future_timestamp.iso8601 } },
+                                                      override_created_at: slightly_future_timestamp.iso8601 } },
                              env: private_auth_header
     end
 
@@ -113,12 +113,12 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
-                                                      created_at: 'invalid-timestamp' } },
+                                                      override_created_at: 'invalid-timestamp' } },
                              env: private_auth_header
     end
 
-    assert_response :bad_request
-    assert_equal 'Invalid created_at timestamp. Must be within the last 60 minutes.', response.body
+    assert_response :unprocessable_content
+    assert_includes response.body, 'Must be within the last 60 minutes.'
   end
 
   test 'should update measurement' do
