@@ -50,13 +50,13 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
       end
 
       new_measurement = Measurement.last
-      assert_in_delta Time.current, new_measurement.created_at, 1.second
+      assert_equal Time.current, new_measurement.created_at
       assert_response :created
     end
   end
 
   test 'should create measurement with valid created_at timestamp' do
-    valid_timestamp = 30.minutes.ago
+    valid_timestamp = 30.minutes.ago.round
     assert_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
@@ -65,7 +65,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     end
 
     new_measurement = Measurement.last
-    assert_in_delta valid_timestamp, new_measurement.created_at, 1.second
+    assert_equal valid_timestamp, new_measurement.created_at
     assert_response :created
   end
 
@@ -96,7 +96,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should accept measurement with created_at slightly in the future' do
-    slightly_future_timestamp = 2.minutes.from_now
+    slightly_future_timestamp = 2.minutes.from_now.round
     assert_difference('Measurement.count') do
       post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
                                                       temperature: 20.5,
@@ -105,7 +105,7 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     end
 
     new_measurement = Measurement.last
-    assert_in_delta slightly_future_timestamp, new_measurement.created_at, 1.second
+    assert_equal slightly_future_timestamp, new_measurement.created_at
     assert_response :created
   end
 
