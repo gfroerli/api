@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_18_140046) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_18_213055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_18_140046) do
     t.float "latitude", null: false
     t.float "longitude", null: false
     t.bigint "waterbody_id"
+    t.string "shortname", limit: 4
     t.index ["sponsor_id"], name: "index_sensors_on_sponsor_id"
     t.index ["waterbody_id"], name: "index_sensors_on_waterbody_id"
   end
