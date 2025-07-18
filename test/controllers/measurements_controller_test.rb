@@ -41,6 +41,86 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
   end
 
+  test 'should create measurement without created_at and use current timestamp' do
+    travel_to Time.zone.parse('2023-01-01 12:00:00') do
+      assert_difference('Measurement.count') do
+        post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
+                                                        temperature: 20.5 } },
+                               env: private_auth_header
+      end
+
+      new_measurement = Measurement.last
+      assert_equal Time.current, new_measurement.created_at
+      assert_response :created
+    end
+  end
+
+  test 'should create measurement with valid created_at timestamp' do
+    valid_timestamp = 30.minutes.ago.round
+    assert_difference('Measurement.count') do
+      post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
+                                                      temperature: 20.5,
+                                                      override_created_at: valid_timestamp.iso8601 } },
+                             env: private_auth_header
+    end
+
+    new_measurement = Measurement.last
+    assert_equal valid_timestamp, new_measurement.created_at
+    assert_response :created
+  end
+
+  test 'should reject measurement with created_at too far in the past' do
+    too_old_timestamp = 61.minutes.ago
+    assert_no_difference('Measurement.count') do
+      post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
+                                                      temperature: 20.5,
+                                                      override_created_at: too_old_timestamp.iso8601 } },
+                             env: private_auth_header
+    end
+
+    assert_response :unprocessable_content
+    assert_includes response.body, 'Must be within the last 60 minutes.'
+  end
+
+  test 'should reject measurement with created_at too far in the future' do
+    too_future_timestamp = 6.minutes.from_now
+    assert_no_difference('Measurement.count') do
+      post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
+                                                      temperature: 20.5,
+                                                      override_created_at: too_future_timestamp.iso8601 } },
+                             env: private_auth_header
+    end
+
+    assert_response :unprocessable_content
+    assert_includes response.body, 'Must be within the last 60 minutes.'
+  end
+
+  test 'should accept measurement with created_at slightly in the future' do
+    slightly_future_timestamp = 2.minutes.from_now.round
+    assert_difference('Measurement.count') do
+      post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
+                                                      temperature: 20.5,
+                                                      override_created_at: slightly_future_timestamp.iso8601 } },
+                             env: private_auth_header
+    end
+
+    new_measurement = Measurement.last
+    assert_equal slightly_future_timestamp, new_measurement.created_at
+    assert_response :created
+  end
+
+  test 'should reject measurement with invalid created_at timestamp' do
+    assert_no_difference('Measurement.count') do
+      post measurements_url, params: { measurement: { sensor_id: @measurement.sensor.id,
+                                                      temperature: 20.5,
+                                                      override_created_at: 'invalid-timestamp' } },
+                             env: private_auth_header
+    end
+
+    assert_response :unprocessable_content
+    assert_includes response.body, 'Must be within the last 60 minutes.'
+  end
+
   test 'should update measurement' do
     patch measurement_url(@measurement), params: { measurement: { custom_attributes: @measurement.custom_attributes,
                                                                   sensor_id: @measurement.sensor.id,

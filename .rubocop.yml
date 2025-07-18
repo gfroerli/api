@@ -20,6 +20,9 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/GuardClause:
+  Enabled: false
+
 AllCops:
   NewCops: enable
   Exclude:
