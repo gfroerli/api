@@ -20,7 +20,7 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
     get sensor_url(@sensor), env: public_auth_header
     assert_response :success
     assert_equal response.parsed_body.keys,
-                 %w[id device_name caption latitude longitude sponsor_id created_at updated_at]
+                 %w[id device_name shortname caption latitude longitude sponsor_id created_at updated_at]
   end
 
   test 'should create sensor' do
