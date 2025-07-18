@@ -13,6 +13,7 @@ class SensorDashboard < Administrate::BaseDashboard
     waterbody: Field::BelongsTo,
     id: Field::Number,
     device_name: Field::String,
+    shortname: Field::String,
     caption: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -41,6 +42,7 @@ class SensorDashboard < Administrate::BaseDashboard
     waterbody
     id
     device_name
+    shortname
     caption
     created_at
     updated_at
@@ -55,6 +57,7 @@ class SensorDashboard < Administrate::BaseDashboard
     sponsor
     waterbody
     device_name
+    shortname
     caption
     latitude
     longitude
