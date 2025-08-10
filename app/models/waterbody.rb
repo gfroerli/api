@@ -1,5 +1,5 @@
 class Waterbody < ApplicationRecord
   has_many :sensors, dependent: :nullify
 
-  validates :name, :latitude, :longitude, presence: true
+  validates :name, :description, :latitude, :longitude, presence: true
 end
