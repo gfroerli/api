@@ -29,7 +29,7 @@ module MobileApp
                                  .select('MAX(measurements.temperature) AS maximum_temperature')
                                  .select('AVG(measurements.temperature) AS average_temperature')
                                  .group('aggregation_date')
-                                 .order('aggregation_date DESC')
+                                 .order(aggregation_date: :desc)
       @aggregations = filtered_by_params(@aggregations)
     end
 
@@ -41,7 +41,7 @@ module MobileApp
                                  .select('MAX(measurements.temperature) AS maximum_temperature')
                                  .select('AVG(measurements.temperature) AS average_temperature')
                                  .group('aggregation_date, aggregation_hour')
-                                 .order('aggregation_date DESC, aggregation_hour DESC')
+                                 .order(aggregation_date: :desc, aggregation_hour: :desc)
       @aggregations = filtered_by_params(@aggregations)
     end
 
