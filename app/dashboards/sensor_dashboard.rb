@@ -78,7 +78,7 @@ class SensorDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how sensors are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(sensor)
-  #   "Sensor ##{sensor.id}"
-  # end
+  def display_resource(sensor)
+    sensor.shortname || sensor.device_name || "Sen #{sensor.id}"
+  end
 end
