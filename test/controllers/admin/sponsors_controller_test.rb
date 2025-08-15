@@ -13,5 +13,12 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
   test 'should get success with authentication' do
     get admin_sponsors_url, headers: @headers
     assert_response :success
+    assert_includes @response.body, 'Sponsors'
+  end
+
+  test 'show an existing sponsor' do
+    sponsor = create(:sponsor, name: 'OST')
+    get admin_sponsor_url(sponsor), headers: @headers
+    assert_includes @response.body, "Show #{sponsor.name}"
   end
 end
