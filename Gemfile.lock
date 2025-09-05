@@ -173,6 +173,10 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.6.0)
+    propshaft (1.3.1)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -304,6 +308,7 @@ DEPENDENCIES
   listen (~> 3.9)
   mocha (~> 2.7)
   pg
+  propshaft
   pry-rails
   puma (~> 6.6)
   rack-contrib
