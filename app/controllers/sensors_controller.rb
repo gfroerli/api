@@ -48,6 +48,8 @@ class SensorsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def sensor_params
+    # rubocop:disable Rails/StrongParametersExpect -- TODO: Switch to using `params.expect`
     params.require(:sensor).permit(:device_name, :caption, :sponsor_id, :latitude, :longitude)
+    # rubocop:enable Rails/StrongParametersExpect
   end
 end
