@@ -185,7 +185,7 @@ GEM
     psych (5.2.6)
       date
       stringio
-    puma (6.6.1)
+    puma (7.1.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.18)
@@ -310,7 +310,7 @@ DEPENDENCIES
   pg
   propshaft
   pry-rails
-  puma (~> 6.6)
+  puma (~> 7.1)
   rack-contrib
   rack-cors
   rails (~> 8.0.2)
