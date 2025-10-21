@@ -61,7 +61,9 @@ class MeasurementsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def measurement_params
+    # rubocop:disable Rails/StrongParametersExpect -- TODO: Switch to using `params.expect`
     params.require(:measurement).permit(:temperature, :sensor_id, :override_created_at, custom_attributes: {})
+    # rubocop:enable Rails/StrongParametersExpect
   end
 
   def filter_by_ids(ids)
