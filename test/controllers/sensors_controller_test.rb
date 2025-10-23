@@ -24,10 +24,10 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create sensor' do
-    assert_difference('Sensor.count') do
+    assert_difference('Sensor.count', 1) do
       post sensors_url, params: { sensor: { caption: @sensor.caption, device_name: @sensor.device_name,
                                             latitude: @sensor.latitude, longitude: @sensor.longitude,
-                                            sponsor_id: @sensor.sponsor.id } },
+                                            sponsor_id: @sensor.sponsor.id, shortname: 'ZH-1' } },
                         env: private_auth_header
     end
 
@@ -37,8 +37,9 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
   test 'should update sensor' do
     patch sensor_url(@sensor), params: { sensor: { caption: @sensor.caption, device_name: @sensor.device_name,
                                                    latitude: @sensor.latitude, longitude: @sensor.longitude,
-                                                   sponsor_id: @sensor.sponsor.id } },
+                                                   sponsor_id: @sensor.sponsor.id, shortname: 'ZH-1' } },
                                env: private_auth_header
+    assert_equal 'ZH-1', @sensor.reload.shortname
     assert_response :ok
   end
 
