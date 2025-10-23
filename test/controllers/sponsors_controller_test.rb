@@ -45,20 +45,32 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
   class FlawedSponsorsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @sponsor = create(:sponsor)
-      Sponsor.any_instance.stubs(:save).returns(false)
     end
 
-    test 'should NOT create sponsor' do
+    test 'with invalid attributes should NOT create sponsor' do
       assert_no_difference('Sponsor.count') do
-        post sponsors_url, params: { sponsor: { blub: 'gach' } }, env: private_auth_header
+        post sponsors_url, params: { sponsor: { active: true } }, env: private_auth_header
       end
 
       assert_response :unprocessable_content
     end
 
-    test 'should NOT update sponsor' do
-      patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }, env: private_auth_header
+    test 'with invalid attributes should NOT update sponsor' do
+      patch sponsor_url(@sponsor), params: { sponsor: { name: nil } }, env: private_auth_header
       assert_response :unprocessable_content
+    end
+
+    test 'with non-allowed attributes should NOT create sponsor' do
+      assert_no_difference('Sponsor.count') do
+        post sponsors_url, params: { sponsor: { blub: 'gach' } }, env: private_auth_header
+      end
+
+      assert_response :bad_request
+    end
+
+    test 'with non-allowed attributes should NOT update sponsor' do
+      patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }, env: private_auth_header
+      assert_response :bad_request
     end
   end
 end

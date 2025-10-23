@@ -140,21 +140,34 @@ class MeasurementsControllerTest < ActionDispatch::IntegrationTest
   class FlawedMeasurementsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @measurement = create(:measurement)
-      Measurement.any_instance.stubs(:save).returns(false)
     end
 
-    test 'should NOT create measurement' do
+    test 'with invalid attributes should NOT create measurement' do
       assert_no_difference('Measurement.count') do
-        post measurements_url, params: { measurement: { blub: 'gach' } }, env: private_auth_header
+        post measurements_url, params: { measurement: { temperature: '10.0' } }, env: private_auth_header
       end
 
       assert_response :unprocessable_content
     end
 
-    test 'should NOT update measurement' do
-      patch measurement_url(@measurement), params: { measurement: { blub: 'gach' } },
+    test 'with invalid attributes should NOT update measurement' do
+      patch measurement_url(@measurement), params: { measurement: { temperature: 'gach' } },
                                            env: private_auth_header
       assert_response :unprocessable_content
+    end
+
+    test 'with non-allowed attributes should NOT create measurement' do
+      assert_no_difference('Measurement.count') do
+        post measurements_url, params: { measurement: { blub: 'gach' } }, env: private_auth_header
+      end
+
+      assert_response :bad_request
+    end
+
+    test 'with non-allowed attributes should NOT update measurement' do
+      patch measurement_url(@measurement), params: { measurement: { blub: 'gach' } },
+                                           env: private_auth_header
+      assert_response :bad_request
     end
   end
 
