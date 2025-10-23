@@ -48,8 +48,6 @@ class SponsorsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def sponsor_params
-    # rubocop:disable Rails/StrongParametersExpect -- TODO: Switch to using `params.expect`
-    params.require(:sponsor).permit(:name, :description, :active, sensor_ids: [])
-    # rubocop:enable Rails/StrongParametersExpect
+    params.expect(sponsor: [:name, :description, :active, { sensor_ids: [] }])
   end
 end
