@@ -54,20 +54,35 @@ class SensorsControllerTest < ActionDispatch::IntegrationTest
   class FlawedSensorsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @sensor = create(:sensor)
-      Sensor.any_instance.stubs(:save).returns(false)
     end
 
-    test 'should NOT create sensor' do
+    test 'with invalid attributes should NOT create sensor' do
       assert_no_difference('Sensor.count') do
-        post sensors_url, params: { sensor: { blub: 'gach' } }, env: private_auth_header
+        post sensors_url, params: { sensor: { caption: 'gach' } }, env: private_auth_header
       end
 
       assert_response :unprocessable_content
     end
 
-    test 'should NOT update sensor' do
-      patch sensor_url(@sensor), params: { sensor: { blub: 'gach' } }, env: private_auth_header
+    test 'with invalid attributes should NOT update sensor' do
+      assert_no_difference('Sensor.count') do
+        patch sensor_url(@sensor), params: { sensor: { shortname: 'way too long' } }, env: private_auth_header
+      end
+
       assert_response :unprocessable_content
+    end
+
+    test 'with non-allowed attributes should NOT create sensor' do
+      assert_no_difference('Sensor.count') do
+        post sensors_url, params: { sensor: { blub: 'gach' } }, env: private_auth_header
+      end
+
+      assert_response :bad_request
+    end
+
+    test 'with non-allowed attributes should NOT update sensor' do
+      patch sensor_url(@sensor), params: { sensor: { blub: 'gach' } }, env: private_auth_header
+      assert_response :bad_request
     end
   end
 end
