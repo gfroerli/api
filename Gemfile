@@ -11,7 +11,7 @@ gem 'propshaft'
 gem 'puma', '~> 7.1'
 gem 'rack-contrib'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 8.0.2'
+gem 'rails', '~> 8.1.1'
 
 group :development do
   gem 'listen', '~> 3.9'
