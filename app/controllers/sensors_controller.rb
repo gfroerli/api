@@ -19,7 +19,7 @@ class SensorsController < ApplicationController
     if @sensor.save
       render :show, status: :created, location: @sensor
     else
-      render plain: @sensor.errors.to_json, content_type: 'application/json', status: :unprocessable_entity
+      render plain: @sensor.errors.to_json, content_type: 'application/json', status: :unprocessable_content
     end
   end
 
@@ -29,7 +29,7 @@ class SensorsController < ApplicationController
     if @sensor.update(sensor_params)
       render :show, status: :ok, location: @sensor
     else
-      render plain: @sensor.errors.to_json, content_type: 'application/json', status: :unprocessable_entity
+      render plain: @sensor.errors.to_json, content_type: 'application/json', status: :unprocessable_content
     end
   end
 
