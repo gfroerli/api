@@ -28,6 +28,6 @@ end
 
 group :test do
   gem 'factory_bot_rails'
-  gem 'mocha', '~> 2.7'
+  gem 'mocha', '~> 3.0'
   gem 'simplecov', require: false
 end
