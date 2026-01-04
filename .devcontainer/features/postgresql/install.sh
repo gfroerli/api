@@ -59,7 +59,7 @@ cat > $STARTSCRIPT << 'EOF'
 export PATH=/usr/local/pgsql/bin:$PATH
 PGDATA="${PGDATA:-$HOME/pgdata}"
 
-if [ ! -d "$PGDATA" ]; then
+if [ ! -d "$PGDATA" ] || [ ! -f "$PGDATA/PG_VERSION" ]; then
     echo "Initializing PostgreSQL data directory at $PGDATA..."
     initdb -D "$PGDATA"
 fi
