@@ -1,0 +1,14 @@
+{
+  "id": "postgresql",
+  "version": "1.0.0",
+  "name": "PostgreSL",
+  "description": "Installs PostgreSQL for a non-root user, without need for sudo",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "16",
+      "description": "Major version of PostgreSQL to install (e.g., '16')"
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}
