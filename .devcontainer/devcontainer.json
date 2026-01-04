@@ -51,10 +51,18 @@
   },
 
   // Forward ports
-  "forwardPorts": [3000],
+  "forwardPorts": [3000, 5432],
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
+
+  // Container environment variables
+  "containerEnv": {
+    "RAILS_ENV": "development"
+  },
 
   // After first start
-  "postStartCommand": "pg-start.sh && bin/setup",
+  "postStartCommand": "pg-start.sh && bin/setup --skip-server && bin/dev -d",
 
   // Customizations
   "customizations": {
@@ -78,7 +86,9 @@
         "dnut.rewrap-revived",
         "esbenp.prettier-vscode",
         // Ruby
-        "Shopify.ruby-lsp"
+        "Shopify.ruby-lsp",
+        // PostgreSQL
+        "ms-ossdata.vscode-pgsql"
       ]
     }
   }
