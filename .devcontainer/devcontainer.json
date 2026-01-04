@@ -56,6 +56,10 @@
 
   // Forward ports
   "forwardPorts": [3000, 5432],
+  "portsAttributes": {
+    "3000": { "label": "Rails" },
+    "5432": { "label": "PostgreSQL" }
+  },
   "otherPortsAttributes": {
     "onAutoForward": "ignore"
   },
@@ -73,6 +77,8 @@
   "customizations": {
     "vscode": {
       "settings": {
+        // Disable automatic port forwarding (only forward ports listed in forwardPorts)
+        "remote.autoForwardPorts": false,
         // General
         "editor.formatOnSave": true,
         "files.insertFinalNewline": true,
