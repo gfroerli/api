@@ -69,6 +69,14 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
       assert_response :bad_request
     end
 
+    test 'with invalid type should NOT create sponsor' do
+      assert_no_difference('Sponsor.count') do
+        post sponsors_url, params: { sponsor: { name: 'Sponsor', sponsor_type: 'foobar' } }, env: private_auth_header
+      end
+
+      assert_response :bad_request
+    end
+
     test 'with non-allowed attributes should NOT update sponsor' do
       patch sponsor_url(@sponsor), params: { sponsor: { blub: 'gach' } }, env: private_auth_header
       assert_response :bad_request

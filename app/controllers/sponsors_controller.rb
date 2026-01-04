@@ -1,5 +1,6 @@
 class SponsorsController < ApplicationController
   before_action :set_sponsor, only: %i[show update destroy]
+  rescue_from ArgumentError, with: :handle_invalid_enum
 
   # GET /sponsors
   # GET /sponsors.json
@@ -49,5 +50,9 @@ class SponsorsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def sponsor_params
     params.expect(sponsor: [:name, :description, :active, :sponsor_type, { sensor_ids: [] }])
+  end
+
+  def handle_invalid_enum(exception)
+    render json: { error: exception.message }, status: :bad_request
   end
 end
