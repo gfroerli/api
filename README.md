@@ -134,8 +134,8 @@ Query parameters:
 
 ### Requirements
 
-* Ruby 3.3
-* Rails 7.2
+* Ruby 3.4
+* Rails 8.1
 
 ### Installation
 
