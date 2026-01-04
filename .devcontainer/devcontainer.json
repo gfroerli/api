@@ -36,7 +36,11 @@
     // OpenCode data storage (project-specific named volume for sessions, messages, etc.)
     "source=devcontainer--${localWorkspaceFolderBasename}--opencode-data,target=/home/dev/.local/share/opencode,type=volume",
     // OpenCode credentials (shared from host, overlays on top of the volume)
-    "source=${localEnv:HOME}/.local/share/opencode/auth.json,target=/home/dev/.local/share/opencode/auth.json,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.local/share/opencode/auth.json,target=/home/dev/.local/share/opencode/auth.json,type=bind,consistency=cached",
+    // Ruby gems (persisted across container rebuilds)
+    "source=devcontainer--${localWorkspaceFolderBasename}--bundle,target=/home/dev/.bundle,type=volume",
+    // PostgreSQL data (persisted across container rebuilds)
+    "source=devcontainer--${localWorkspaceFolderBasename}--pgdata,target=/home/dev/pgdata,type=volume"
   ],
 
   // Features to install
@@ -58,7 +62,8 @@
 
   // Container environment variables
   "containerEnv": {
-    "RAILS_ENV": "development"
+    "RAILS_ENV": "development",
+    "BUNDLE_PATH": "/home/dev/.bundle"
   },
 
   // After first start
