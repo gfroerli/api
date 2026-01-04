@@ -29,7 +29,8 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
   test 'should update sponsor' do
     patch sponsor_url(@sponsor), params: { sponsor: { active: @sponsor.active,
                                                       description: @sponsor.description,
-                                                      name: @sponsor.name } },
+                                                      name: @sponsor.name,
+                                                      sponsor_type: @sponsor.sponsor_type } },
                                  env: private_auth_header
     assert_response :ok
   end
