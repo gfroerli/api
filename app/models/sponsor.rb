@@ -1,8 +1,8 @@
 class Sponsor < ApplicationRecord
   has_many :sensors, dependent: :nullify
 
-  enum :sponsor_type, { sponsor: 'sponsor', public_data_provider: 'public_data_provider', partner: 'partner' }
+  enum :sponsor_type, { sponsor: 'sponsor', public_data_provider: 'public_data_provider', partner: 'partner' },
+       validate: true
 
   validates :name, presence: true
-  validates :sponsor_type, presence: true
 end

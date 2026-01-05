@@ -74,7 +74,7 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
         post sponsors_url, params: { sponsor: { name: 'Sponsor', sponsor_type: 'foobar' } }, env: private_auth_header
       end
 
-      assert_response :bad_request
+      assert_response :unprocessable_content
     end
 
     test 'with non-allowed attributes should NOT update sponsor' do

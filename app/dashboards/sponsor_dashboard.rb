@@ -13,9 +13,7 @@ class SponsorDashboard < Administrate::BaseDashboard
     name: Field::String,
     description: Field::Text,
     active: Field::Boolean,
-    sponsor_type: Field::Select.with_options(searchable: false, collection: lambda { |field|
-      field.resource.class.sponsor_types.keys
-    }),
+    sponsor_type: Field::Select.with_options(searchable: false, collection: Sponsor.sponsor_types.keys),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     logo_source: Field::String
