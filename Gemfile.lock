@@ -150,8 +150,7 @@ GEM
     method_source (1.1.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (6.0.1)
-      prism (~> 1.5)
+    minitest (5.27.0)
     mocha (3.0.1)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
@@ -311,6 +310,7 @@ DEPENDENCIES
   factory_bot_rails
   jbuilder
   listen (~> 3.9)
+  minitest (~> 5.18)
   mocha (~> 3.0)
   pg
   propshaft
@@ -329,4 +329,4 @@ RUBY VERSION
    ruby 3.4.8p72
 
 BUNDLED WITH
-   2.4.19
+   2.6.9

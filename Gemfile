@@ -19,6 +19,7 @@ end
 
 group :development, :test do
   gem 'byebug'
+  gem 'minitest', '~> 5.18' # TODO: Remove once Rails supports Minitest 6
   gem 'pry-rails'
   gem 'rubocop', require: false
   gem 'rubocop-factory_bot', require: false
