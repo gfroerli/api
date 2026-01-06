@@ -26,6 +26,7 @@ class ApiConsumerDashboard < Administrate::BaseDashboard
     id
     public_api_key
     contact_email
+    caption
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
