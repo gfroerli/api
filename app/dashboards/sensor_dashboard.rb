@@ -79,6 +79,6 @@ class SensorDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(sensor)
-    sensor.shortname || sensor.device_name || "Sen #{sensor.id}"
+    sensor.device_name || "Sensor #{sensor.id}"
   end
 end
