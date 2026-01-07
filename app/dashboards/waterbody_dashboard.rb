@@ -27,9 +27,9 @@ class WaterbodyDashboard < Administrate::BaseDashboard
     id
     name
     description
-    sensors
     latitude
     longitude
+    sensors
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
