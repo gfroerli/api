@@ -21,4 +21,10 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
     get admin_sponsor_url(sponsor), headers: @headers
     assert_includes @response.body, "Show #{sponsor.name}"
   end
+
+  test 'new sponsor form includes sponsor_type field' do
+    get new_admin_sponsor_url, headers: @headers
+    assert_response :success
+    assert_includes @response.body, 'sponsor_type'
+  end
 end

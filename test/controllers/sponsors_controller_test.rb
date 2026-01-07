@@ -29,7 +29,8 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
   test 'should update sponsor' do
     patch sponsor_url(@sponsor), params: { sponsor: { active: @sponsor.active,
                                                       description: @sponsor.description,
-                                                      name: @sponsor.name } },
+                                                      name: @sponsor.name,
+                                                      sponsor_type: @sponsor.sponsor_type } },
                                  env: private_auth_header
     assert_response :ok
   end
@@ -66,6 +67,14 @@ class SponsorsControllerTest < ActionDispatch::IntegrationTest
       end
 
       assert_response :bad_request
+    end
+
+    test 'with invalid type should NOT create sponsor' do
+      assert_no_difference('Sponsor.count') do
+        post sponsors_url, params: { sponsor: { name: 'Sponsor', sponsor_type: 'foobar' } }, env: private_auth_header
+      end
+
+      assert_response :unprocessable_content
     end
 
     test 'with non-allowed attributes should NOT update sponsor' do

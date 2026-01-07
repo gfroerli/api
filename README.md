@@ -85,7 +85,15 @@ JSON fields:
 | id | int | Sponsor ID |
 | name | string | Sponsor name |
 | description | string? | Sponsor description |
+| sponsor_type | string | Type: "sponsor", "public_data_provider", or "partner" |
 | logo_url | string? | Logo URL (PNG) |
+
+Sponsor types:
+
+- `sponsor`: An actual sensor sponsor
+- `public_data_provider`: The sensor data is obtained from a public source
+- `partner`: The sensor data is obtained from a partner who runs the sensor and
+  provides the data to us
 
 **Sensor Daily Temperatures**
 

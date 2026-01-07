@@ -13,6 +13,7 @@ class SponsorDashboard < Administrate::BaseDashboard
     name: Field::String,
     description: Field::Text,
     active: Field::Boolean,
+    sponsor_type: Field::Select.with_options(searchable: false, collection: Sponsor.sponsor_types.keys),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     logo_source: Field::String
@@ -28,6 +29,7 @@ class SponsorDashboard < Administrate::BaseDashboard
     id
     name
     description
+    sponsor_type
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -38,6 +40,7 @@ class SponsorDashboard < Administrate::BaseDashboard
     name
     description
     active
+    sponsor_type
     created_at
     updated_at
     logo_source
@@ -51,6 +54,7 @@ class SponsorDashboard < Administrate::BaseDashboard
     name
     description
     active
+    sponsor_type
     logo_source
   ].freeze
 
