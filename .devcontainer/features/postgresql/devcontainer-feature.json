@@ -1,0 +1,48 @@
+{
+  "id": "postgresql",
+  "version": "1.0.0",
+  "name": "PostgreSL",
+  "description": "Installs PostgreSQL for a non-root user, without need for sudo",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "16",
+      "description": "Major version of PostgreSQL to install (e.g., '16')"
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-ossdata.vscode-pgsql"],
+      "settings": {
+        "pgsql.serverGroups": [
+          {
+            "name": "Servers",
+            "id": "FF951090-21E4-4134-A192-7DB201A92451",
+            "isDefault": true
+          }
+        ],
+        "workbench.secondarySideBar.defaultVisibility": "hidden",
+        "pgsql.connections": [
+          {
+            "id": "41E9B0DD-3C3A-4C51-8EA1-1FDF1A44B33F",
+            "groupId": "FF951090-21E4-4134-A192-7DB201A92451",
+            "authenticationType": "None",
+            "connectTimeout": 15,
+            "applicationName": "vscode-pgsql",
+            "clientEncoding": "utf8",
+            "sslmode": "allow",
+            "server": "localhost",
+            "expiresOn": 0,
+            "emptyPasswordInput": true,
+            "user": "dev",
+            "database": "coredump_water_sensor_api_development",
+            "profileName": "Gfrörli API Dev",
+            "password": "",
+            "sshPassword": ""
+          }
+        ]
+      }
+    }
+  }
+}
