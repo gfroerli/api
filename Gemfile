@@ -14,7 +14,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 8.1.2'
 
 group :development do
-  gem 'listen', '~> 3.9'
+  gem 'listen', '~> 3.10'
 end
 
 group :development, :test do
