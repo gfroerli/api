@@ -105,7 +105,7 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    ffi (1.17.2)
+    ffi (1.17.3)
     globalid (1.3.0)
       activesupport (>= 6.1)
     i18n (1.14.8)
@@ -133,7 +133,8 @@ GEM
     kaminari-core (1.2.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
-    listen (3.9.0)
+    listen (3.10.0)
+      logger
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
@@ -309,7 +310,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   jbuilder
-  listen (~> 3.9)
+  listen (~> 3.10)
   minitest (~> 5.18)
   mocha (~> 3.0)
   pg
