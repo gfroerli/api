@@ -14,14 +14,14 @@ class WaterbodiesControllerTest < ActionDispatch::IntegrationTest
     get waterbodies_url, env: public_auth_header
     assert_response :success
     response_object = response.parsed_body
-    assert response_object.length == 1
-    assert response_object[0]['name'] == @waterbody.name
+    assert_equal 1, response_object.length
+    assert_equal response_object[0]['name'], @waterbody.name
   end
 
   test 'get an individual waterbody' do
     get waterbody_url(@waterbody), env: public_auth_header
     assert_response :success
     response_object = response.parsed_body
-    assert response_object['name'] == @waterbody.name
+    assert_equal response_object['name'], @waterbody.name
   end
 end
