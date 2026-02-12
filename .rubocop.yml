@@ -2,6 +2,7 @@ plugins:
   - rubocop-performance
   - rubocop-factory_bot
   - rubocop-rails
+  - rubocop-minitest
 
 Layout/LineLength:
     Max: 120
@@ -21,6 +22,12 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/GuardClause:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
 
 AllCops:
