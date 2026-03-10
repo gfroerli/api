@@ -1,17 +1,17 @@
 require 'test_helper'
 
-class LanguageTestController < ApplicationController
-  def authorize!; end
-
-  def index
-    render plain: I18n.locale
-  end
-end
-
 class ApplicationControllerTest < ActionDispatch::IntegrationTest
+  class LanguageTestController < ApplicationController
+    def authorize!; end
+
+    def index
+      render plain: I18n.locale
+    end
+  end
+
   def setup
     Rails.application.routes.draw do
-      get 'test' => 'language_test#index'
+      get 'test' => 'application_controller_test/language_test#index'
     end
   end
 
