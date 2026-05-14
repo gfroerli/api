@@ -56,15 +56,15 @@ module MobileApp
     end
 
     def created_from_param
-      Time.zone.parse(params.expect(:from).to_s)&.beginning_of_day || Time.zone.at(607_910_400)
+      Time.zone.parse(params.fetch(:from, nil).to_s)&.beginning_of_day || Time.zone.at(607_910_400)
     end
 
     def created_to_param
-      Time.zone.parse(params.expect(:to).to_s)&.end_of_day || Time.zone.now
+      Time.zone.parse(params.fetch(:to, nil).to_s)&.end_of_day || Time.zone.now
     end
 
     def limit_param
-      limit = params.expect(:limit).to_i
+      limit = params.fetch(:limit, nil).to_i
       limit.positive? ? limit : 10
     end
   end
