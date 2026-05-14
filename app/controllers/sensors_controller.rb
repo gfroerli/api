@@ -43,7 +43,7 @@ class SensorsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_sensor
-    @sensor = Sensor.find(params[:id])
+    @sensor = Sensor.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

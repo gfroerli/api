@@ -56,7 +56,7 @@ class MeasurementsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_measurement
-    @measurement = Measurement.find(params[:id])
+    @measurement = Measurement.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

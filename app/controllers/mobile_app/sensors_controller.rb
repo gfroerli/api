@@ -18,7 +18,7 @@ module MobileApp
                       .select('MIN(measurements.temperature) AS minimum_temperature')
                       .select('MAX(measurements.temperature) AS maximum_temperature')
                       .select('AVG(measurements.temperature) AS average_temperature')
-                      .find(params[:id])
+                      .find(params.expect(:id))
       @latest_measurement = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first
     end
 
@@ -46,7 +46,7 @@ module MobileApp
     end
 
     def sponsor
-      @sponsor = Sponsor.joins(:sensors).find_by!(sensors: { id: params[:id] }, active: true)
+      @sponsor = Sponsor.joins(:sensors).find_by!(sensors: { id: params.expect(:id) }, active: true)
     end
 
     private
@@ -56,15 +56,15 @@ module MobileApp
     end
 
     def created_from_param
-      Time.zone.parse(params[:from].to_s)&.beginning_of_day || Time.zone.at(607_910_400)
+      Time.zone.parse(params.expect(:from).to_s)&.beginning_of_day || Time.zone.at(607_910_400)
     end
 
     def created_to_param
-      Time.zone.parse(params[:to].to_s)&.end_of_day || Time.zone.now
+      Time.zone.parse(params.expect(:to).to_s)&.end_of_day || Time.zone.now
     end
 
     def limit_param
-      limit = params[:limit].to_i
+      limit = params.expect(:limit).to_i
       limit.positive? ? limit : 10
     end
   end
