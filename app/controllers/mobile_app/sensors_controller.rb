@@ -1,5 +1,7 @@
 module MobileApp
   class SensorsController < ApplicationController
+    DEFAULT_CREATED_FROM_TIMESTAMP = 607_910_400
+
     def index
       @sensors = Sensor.order(created_at: :asc)
       @latest_sensor_measurements = Measurement.last_per_sensor(1)
@@ -56,7 +58,7 @@ module MobileApp
     end
 
     def created_from_param
-      Time.zone.parse(params.fetch(:from, nil).to_s)&.beginning_of_day || Time.zone.at(607_910_400)
+      Time.zone.parse(params.fetch(:from, nil).to_s)&.beginning_of_day || Time.zone.at(DEFAULT_CREATED_FROM_TIMESTAMP)
     end
 
     def created_to_param
