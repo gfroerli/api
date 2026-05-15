@@ -4,6 +4,6 @@ class WaterbodiesController < ApplicationController
   end
 
   def show
-    @waterbody = Waterbody.find(params[:id])
+    @waterbody = Waterbody.find(params.expect(:id))
   end
 end

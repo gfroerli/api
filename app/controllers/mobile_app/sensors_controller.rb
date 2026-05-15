@@ -1,5 +1,7 @@
 module MobileApp
   class SensorsController < ApplicationController
+    DEFAULT_CREATED_FROM_TIMESTAMP = 607_910_400
+
     def index
       @sensors = Sensor.order(created_at: :asc)
       @latest_sensor_measurements = Measurement.last_per_sensor(1)
@@ -18,8 +20,8 @@ module MobileApp
                       .select('MIN(measurements.temperature) AS minimum_temperature')
                       .select('MAX(measurements.temperature) AS maximum_temperature')
                       .select('AVG(measurements.temperature) AS average_temperature')
-                      .find(params[:id])
-      @latest_measurement = Measurement.where(sensor_id: params[:id]).order(created_at: :desc).first
+                      .find(params.expect(:id))
+      @latest_measurement = Measurement.where(sensor_id: params.expect(:id)).order(created_at: :desc).first
     end
 
     def daily_temperatures
@@ -46,7 +48,7 @@ module MobileApp
     end
 
     def sponsor
-      @sponsor = Sponsor.joins(:sensors).find_by!(sensors: { id: params[:id] }, active: true)
+      @sponsor = Sponsor.joins(:sensors).find_by!(sensors: { id: params.expect(:id) }, active: true)
     end
 
     private
@@ -56,15 +58,15 @@ module MobileApp
     end
 
     def created_from_param
-      Time.zone.parse(params[:from].to_s)&.beginning_of_day || Time.zone.at(607_910_400)
+      Time.zone.parse(params.fetch(:from, nil).to_s)&.beginning_of_day || Time.zone.at(DEFAULT_CREATED_FROM_TIMESTAMP)
     end
 
     def created_to_param
-      Time.zone.parse(params[:to].to_s)&.end_of_day || Time.zone.now
+      Time.zone.parse(params.fetch(:to, nil).to_s)&.end_of_day || Time.zone.now
     end
 
     def limit_param
-      limit = params[:limit].to_i
+      limit = params.fetch(:limit, nil).to_i
       limit.positive? ? limit : 10
     end
   end
