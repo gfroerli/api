@@ -126,9 +126,9 @@ JSON array element fields:
 | --- | --- | --- |
 | aggregation_date | string | ISO date (e.g. "2021-02-25") |
 | aggregation_hour | int | Hour of day (0-23) |
-| minimum_temperature | number | Lowest daily temperature |
-| maximum_temperature | number | Highest daily temperature |
-| average_temperature | number | Average daily temperature (arithmetic mean) |
+| minimum_temperature | number | Lowest hourly temperature |
+| maximum_temperature | number | Highest hourly temperature |
+| average_temperature | number | Average hourly temperature (arithmetic mean) |
 
 Query parameters:
 
